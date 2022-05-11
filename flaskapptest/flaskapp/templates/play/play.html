@@ -6,38 +6,50 @@
 
 {% block content %}
 <div class="row" >
-  <div class="col-sm-3 col-xs-12 rightdiv maindivs">
-    <a href="/play">
-      <div>
-          Play
+  <div class="col-sm-3 col-xs-12 centerdiv maindivs">
+    <div class="row">
+      <div class="col-sm-12 col-xs-6 centerdiv">
+        <a href="/play#iFrame1">
+          <div class="play buttondiv">
+              Play
+          </div>
+        </a>
       </div>
-  </a>
-  <a href="/restart">
-    <div>
-        Restart
+      <div class="col-sm-12 col-xs-6 centerdiv">
+        <a href="/restart">
+          <div class="restart buttondiv">
+              Restart
+          </div>
+        </a>
+      </div>
     </div>
-  </a>
   </div>
 
   <div class="col-sm-6 col-xs-12 gamediv maindivs">
 
 
-    <iframe frameborder='0' noresize='noresize' src="{{ iframe }}" frameborder="0"></iframe>
+    <iframe frameborder='0' noresize='noresize' src="{{ iframe }}" id="iFrame1" frameborder="0"></iframe>
 
 
   </div>
 
-  <div class="col-sm-3 col-xs-12 leftdiv maindivs">
-    <a href="/score">
-      <div>
-          Score
+  <div class="col-sm-3 col-xs-12 centerdiv maindivs">
+    <div class="row">
+      <div class="col-sm-12 col-xs-6 centerdiv">
+        <a href="/score">
+          <div class="score buttondiv">
+              Play
+          </div>
+        </a>
       </div>
-  </a>
-  <a href="/rule">
-    <div>
-        Rules
+      <div class="col-sm-12 col-xs-6 centerdiv">
+        <a href="/rules">
+          <div class="rules buttondiv">
+              Restart
+          </div>
+        </a>
+      </div>
     </div>
-  </a>
   </div>
 
 </div>

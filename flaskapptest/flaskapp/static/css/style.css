@@ -5,9 +5,61 @@ html {
 }
 
 body {
-    max-width: 960px;
+    height: 100vh;
     margin: 0 auto;
-    background: white;
+    background-image: url("pics/background.jpg")
+}
+
+.gamediv{
+    margin-top: 20vh;
+    display: flex;            
+    display: -webkit-flex;            
+    justify-content: center;            
+    align-items: center;   
+}
+
+.centerdiv{
+    display: flex;            
+    justify-content: center;            
+}
+
+.buttondiv{
+    margin-top: 20vh;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 150px;
+    width: 150px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+@media screen and (max-width: 768px) {
+	.buttondiv {
+        margin-top: 3vh;
+        margin-bottom: 3vh;
+	}
+    .gamediv{
+        margin-top: 0vh;
+    }
+}
+
+.play{
+    background-image: url("pics/play.png");
+}
+.restart{
+    background-image: url("pics/restart.png");
+}
+.score{
+    background-image: url("pics/score.png");
+}
+.rules{
+    background-image: url("pics/rules.png");
+}
+
+iframe {
+    margin: auto;
+    height: 500px;
+    width: 360px;
 }
 
 h1 {
@@ -54,22 +106,6 @@ nav ul li span,
 header .action {
     display: block;
     padding: 0.5rem;
-}
-
-.maindivs{
-    border: #377ba8;
-    background-color: #cae6f6;
-    display: flex; /* NEW */
-    /* width: 100%; */
-    /* display: inline-block; */
-    /* box-sizing: border-box; */
-}
-
-@media screen and (max-width: 480px) {
-   .full_half {  width: 100%; }
-   .text      {  padding: 0 0 !important; }
-   .maindivs { flex-direction: column; }         /* NEW */
-   .maindivs:nth-child(2) > .pic { order: -1; }  /* NEW */
 }
 
 .content {
