@@ -49,6 +49,7 @@ body {
     }
 }
 
+
 .play{
     background-image: url("pics/play.png");
 }
@@ -65,12 +66,29 @@ body {
 iframe {
     margin: auto;
     height: 500px;
-    width: 360px;
+    width: 365px;
+}
+table{
+    width: 100%;
+    min-height: 400px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+.scoreboarddiv{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-image: url("pics/board.png");
+    background-size: 100% 100%;
+
 }
 
 h1 {
+    text-align: center;
     font-family: serif;
-    color: #377ba8;
+    color: #49260d;
     margin: 1rem 0;
 }
 

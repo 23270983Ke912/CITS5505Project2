@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row" >
+  <div class="col-sm-3 col-xs-12 centerdiv maindivs">
+    <div class="row">
+      <div class="col-sm-12 col-xs-6 centerdiv">
+        <a href="/play#iFrame1">
+          <div class="play buttondiv">
+              
+          </div>
+        </a>
+      </div>
+      <div class="col-sm-12 col-xs-6 centerdiv">
+        <a href="/restart">
+          <div class="restart buttondiv">
+              
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12 scoreboarddiv gamediv maindivs">
+  
+  <div class="row">
+    <div class="col-xs-12">
+    <h1>{% block title %}Score Board{% endblock %}</h1>
+    </div>
+    <div class="col-xs-12">
+  <table id="scoreboard">
+    <tr><th>Scores</th><th>Max Combo</th><th>Date</th><th>Player</th></tr>
+    {% for post in posts %}
+      <tr><td>{{ post['title'] }}</td><td>{{ post['body'] }}</td><td>{{ post['created'].strftime('%Y-%m-%d') }}</td><td>{{ post['username'] }}</td></tr>
+    {% endfor %}
+  </table>
+</div>  
+</div>
+
+
+  <!-- {% for score in scores %}
+    <article class="score">
+      <header>
+        <div>
+          <h1>{{ score['maxcombo'] }}</h1>
+          <div class="about">by {{ score['username'] }} on {{ score['created'].strftime('%Y-%m-%d') }}</div>
+        </div>
+        {% if g.user['id'] == score['author_id'] %}
+          <a class="action" href="{{ url_for('blog.update', id=score['id']) }}">Edit</a>
+        {% endif %}
+      </header>
+      <p class="body">{{ score['score'] }}</p>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %} -->
+
+
+</div>
+
+<div class="col-sm-3 col-xs-12 centerdiv maindivs">
+  <div class="row">
+    <div class="col-sm-12 col-xs-6 centerdiv">
+      <a href="/score">
+        <div class="score buttondiv">
+            
+        </div>
+      </a>
+    </div>
+    <div class="col-sm-12 col-xs-6 centerdiv">
+      <a href="/rules">
+        <div class="rules buttondiv">
+            
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+</div>
+{% endblock %}
