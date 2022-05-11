@@ -6,6 +6,7 @@ from flask import Flask
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)    
+    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
     app.config.from_mapping(
         #SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskapp.sqlite'),
@@ -43,6 +44,7 @@ def create_app(test_config=None):
     from . import blog
     app.register_blueprint(blog.bp)
     app.add_url_rule('/', endpoint='index')
+
 
 
     return app
