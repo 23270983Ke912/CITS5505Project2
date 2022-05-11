@@ -1,7 +1,7 @@
 var $ = jQuery.noConflict();
 var loaddata_clrs = [['b','b','r','r','b','b'],['y','y','b','b','y','y'],['p','p','y','y','p','p'],['g','g','r','r','g','g'],['r','r','b','b','r','r']]
 
-var def_clrs = ['r','g','b','p','y']; //紅,綠,藍,紫,黃
+var def_clrs = ['r','g','b','p','p','p','p','y']; //紅,綠,藍,紫,黃
 var dim_x = 6; //盤面x顆數
 var dim_y = 5; //盤面y顆數
 var tile_w = 60; //每塊寬px
@@ -10,8 +10,8 @@ var tile_b = 1; //每塊框線px
 
 var sky_speed = 800; // 天降珠的速度
 var grav_speed = 800; // 自然落珠的速度
-var move_speed = 40; // 移動珠子的速度
-var gone_speed = 400; // 珠子消除的速度
+var move_speed = 160; // 移動珠子的速度
+var gone_speed = 300; // 珠子消除的速度
 var myrng = new Math.seedrandom('cits');
 var combo_cnt;
 
@@ -55,7 +55,7 @@ $(function() {
         drag: function(e, ui){
             combo_cnt=0;
             $('#combo').val(combo_cnt);
-            $(this).addClass(''); //拖曳中珠子的樣式
+            $(this).addClass('sel'); //拖曳中珠子的樣式
             selLeft = Math.abs(ui.offset.left);
             selTop = ui.offset.top;
             pos_x = selLeft/tile_w;

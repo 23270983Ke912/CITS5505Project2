@@ -7,7 +7,8 @@ html {
 body {
     height: 100vh;
     margin: 0 auto;
-    background: #ffa5a2;
+    background-image: url("pics/background.jpg");
+    
 }
 
 .gamediv{
@@ -35,6 +36,7 @@ body {
 }
 .buttondiv:hover {
     filter: drop-shadow(0px 0px 10px #ffffff);
+    
   }
 
 @media screen and (max-width: 768px) {
