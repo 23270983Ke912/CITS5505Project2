@@ -55,6 +55,7 @@ $(function() {
     $(".tile").draggable({
         grid: [parseInt(tile_w), parseInt(tile_h)], //拖曳時移動單位(以一個珠子的尺寸為移動單位)
         start:function(e, ui){
+            $("#countdownline").addClass('countdown');
             moveHistory= new Array();
             moveHistory.push(ui.offset.left/tile_w+'-'+ui.offset.top/tile_h)
             var count = 8;
@@ -91,6 +92,7 @@ $(function() {
             }
         },
         stop: function(e, ui){
+            $("#countdownline").removeClass('countdown');
             console.log("moveHistory",moveHistory)
             $(this).removeClass('sel');//停止拖曳就取消拖曳中樣式
             makeChain();//開始計算要消除的Chain
