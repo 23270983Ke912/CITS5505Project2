@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+<div class="row" >
+  <div class="col-sm-3 col-xs-12 rightdiv maindivs">
+    <a href="/play">
+      <div>
+          Play
+      </div>
+  </a>
+  <a href="/restart">
+    <div>
+        Restart
+    </div>
+  </a>
+  </div>
+
+  <div class="col-sm-6 col-xs-12 gamediv maindivs">
+
+
+    <iframe frameborder='0' noresize='noresize' src="{{ iframe }}" frameborder="0"></iframe>
+
+
+  </div>
+
+  <div class="col-sm-3 col-xs-12 leftdiv maindivs">
+    <a href="/score">
+      <div>
+          Score
+      </div>
+  </a>
+  <a href="/rule">
+    <div>
+        Rules
+    </div>
+  </a>
+  </div>
+
+</div>
+{% endblock %}

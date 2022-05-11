@@ -1,0 +1,1160 @@
+<!-- Created by Xinyu Wang(23531069) 2022 for 5505 project
+9/4/2022 V1.1.4 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CITS 5505 Project</title>
+
+  <!-- BS from w3c Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <!-- Latest w3 style -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+  <script src="js/script.js"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <!-- the blue page with animated dots appearing before the page is loaded. -->
+  <div class="preloaderpage">
+    <div class="preloadcontent">
+      <div class="dot1"></div>
+      <div class="dot2"></div>
+      <div class="dot3"></div>
+    </div>
+  </div>
+
+  <!-- the fist full height div after the page is loaded. -->
+  <header id="header" class="header">
+    <div class="text-container">
+      <h1><span id="jsrotating">Concepts</span></h1>
+      <p>Page of Code On Demand</p>
+      <a class="explorebtn" href="#navbartop">Explore More</a>
+    </div>
+  </header>
+
+  <!-- navbar which will stick on the top of the page when user scroll down -->
+  <div class="w3-bar fadein" id="navbartop">
+    <div class="row"></div>
+    <form action="#navbartop">
+      <div class="btn-outside col-xs-4">
+        <button class="btn-white w3-button navebarbtn col-lg-4" id="conceptpagebtn">
+          Concept
+        </button>
+      </div>
+      <div class="btn-outside col-xs-4">
+        <button class="btn-white w3-button navebarbtn col-lg-4" id="historypagebtn">
+          History
+        </button>
+      </div>
+      <div class="btn-outside col-xs-4">
+        <button class="btn-white w3-button navebarbtn col-lg-4" id="myselfpagebtn">
+          Biography
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- main content div containing everything after the header div -->
+  <div class="maincontent">
+
+    <!-- the first main page, concept -->
+    <div id="concept" class="tabs fadein">
+
+      <!-- with conceptcontentcolor(number) class, each div can have differernt img backgrounds  -->
+      <div class="conceptcontent conceptcontentcolor1">
+        <div class="concepttitle">Concept of Code on Demand</div>
+        <div class="textbox">
+          Code on demand is a very abstract concept due to the variety of its
+          scope. In distributed computing, this is widely described as a
+          technology that sends executable software codes from server to
+          client device based on the client's request. Code on demand could be
+          a process which an end-user loads a whole single web application such
+          as scanning the QR code presented on the What's App web application.
+          It could also be described as a process that the user calls a
+          function from to execute a code on-demand, the executable code may
+          be triggered by the user's click on the page to load data or do
+          something else.
+        </div>
+        <div class="textbox">
+          Code on demand is a method to deliver scripts from server side to
+          end user side by using automated scripts triggered by end users.
+          When a script requested by user's actions such as clicking,
+          hovering, or scrolling, the script will be loaded as an executable
+          code from the server side, and it runs on the end user device to
+          achieve certain object, for example animation, uploading data, and
+          loading web-based application etc. Many implementations can achieve
+          this feature including JavaScript, FlashPlayer by Adobe, and
+          ActionScript etc. The most advanced way to implement code on demand
+          is to use WebAssembly, which allows webs to run binary code and has
+          better performance comparing with JavaScript.
+        </div>
+      </div>
+
+      <!-- use bootstrap to layout divs in a row -->
+      <div class="row">
+        <div class="middlepage col-lg-12">
+          <h1>Examples</h1>
+          <div class="col-lg-4">
+
+            <!-- the first example, change color -->
+            <div class="example">
+              <h3>Change Navbar colour by JS</h3>
+              <div class="examplecontent">
+                <p>
+                  Pick up a colour from the below colour picker, and the nav
+                  bar will be that colour.
+                </p>
+
+                <!-- can set and reset color for the top navbar by js -->
+                <input type="color" id="colorpicker" value="#0000ff" />
+                <button class="btn-white w3-button" id="exampleresetcolour">
+                  Reset to default
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+
+            <!-- the second example, re-order words. the html will display a green border when user selected correct order. JS will not allow users to do funny things -->
+            <div class="example">
+              <h3>Clicking effect by JS</h3>
+              <div class="examplecontent">
+                <p>
+                  Click the following buttons to create the word "Code On
+                  Demand"
+                </p>
+                <div id="exampleresult"></div>
+                <button class="btn-white w3-button" id="examplecode" value="Code">
+                  Code
+                </button>
+                <button class="btn-white w3-button" id="exampleon" value="On">
+                  On
+                </button>
+                <button class="btn-white w3-button" id="exampledemand" value="Demand">
+                  Demand
+                </button>
+                <button class="btn-white w3-button" id="exampleresettext">
+                  Reset to default
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+
+            <!-- this example allows user to load an external js and display the content of it. -->
+            <div class="example">
+              <h3>Load external JS code</h3>
+              <div class="examplecontent">
+                <p>Click the following button to a load exteral js file</p>
+                <!-- <button class=" w3-button" id="exampleload">Load Script</button> -->
+                <div class="loadingbar w3-light-grey">
+                  <div id="myBar" class="w3-container w3-blue" style="height: 24px; width: 0%"></div>
+                </div>
+                <p id="myP">Loaded <span id="demo">0</span> of 90 Bytes</p>
+                <div id="exampleloading"></div>
+                <button class="btn-white w3-button" id="exampleload">
+                  Load Script
+                </button>
+
+                <button class="btn-white w3-button" id="exampleresetload">
+                  Reset Process
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Application page -->
+      <div class="conceptcontent conceptcontentcolor2">
+        <div class="concepttitle">Application</div>
+        <div class="textbox">
+          Many years ago, when Adobe FlashPlayer used to be a major method to
+          present the multi-media elements on webpages after the failure of
+          Java applets, it implemented this technology to load content based
+          on the user's demand. This includes web animations and widgets, simple
+          applications and games etc. However, as the world began to give up
+          on Adobe FlashPlayer in 2017, the majority of web browsers started
+          to encourage developers and users to use HTML5 as a standard to
+          replace FlashPlayer. The Increase in Internet bandwidth and client
+          devices' performance created a massive demand for webpage design and
+          development. 
+        </div>
+        <div class="textbox">
+          Nowadays the applications of code on demand are mainly used in the
+          following aspects in webpage development:
+        </div>
+      </div>
+
+      <!-- Application example page -->
+      <div class="row">
+        <div class="middlepage col-lg-12">
+          <h1>Applications Examples</h1>
+          <div class="col-lg-4">
+            <div class="contentapplication">
+              <h3>Front end rendering</h3>
+              <p class="textbox">
+                The concept of code on demand helps developer to achieve
+                dynamically updated webpages and attractive interactions via
+                JavaScript based frameworks such as Vue, Angular, WebAssembly
+                and React. For example, users do not need to go to another
+                link to browse additional contents. Instead, the webpage and
+                its background scripts load these contents and update the page
+                for the user.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="contentapplication">
+              <h3>Code splitting</h3>
+              <p class="textbox">
+                As end users' demanding, webpages and applications become so
+                fancy and power to use. The expansion of web applications
+                requires massive bundle to support them to run, especially if
+                the developer imports a large third-party repository without
+                using CDN for some reason. End users need to wait a long
+                period to load if the packed application is too large. Code
+                splitting is a good solution to prevent this happening by
+                achieve “lazy loading” to only load necessary parts. So, the
+                concept of code on demand improves the flexibility.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="contentapplication">
+              <h3>Single page application (SPA)</h3>
+              <p class="textbox">
+                SPA describes a web-based application has only one primary
+                page, and all contents are loaded within in this primary page
+                without redirect. When a user interacting with the page,
+                functions and scripts will be loaded dynamically by controller
+                module. This means SPA takes rendering job to user's end
+                devices, servers are only responsible for providing data and
+                contents.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- pros and cons page -->
+      <div class="conceptcontent conceptcontentcolor3">
+        <div class="concepttitle">Pros and Cons</div>
+        <div style="text-align: center">double click to view details</div>
+        <div class="row">
+
+          <!-- for each pro and con, js used eventlistener to show more details for the clicked title. -->
+          <div class="col-lg-6">
+            <div class="pandc">
+              <h3>Pros</h3>
+              <div class="textbox w3-border-bottom w3-border-green clickable" id="pro1">
+                Save resources and improve performance
+              </div>
+              <div id="pro1d" style="display: none">
+                Traditional webpages are created by server-side templates, and
+                they are delivered as rendered html files from server by
+                user's request. In comparison, webpages using code on demand
+                concept significantly reduces the server-side workload by
+                giving rendering tasks to client side. Additionally, the
+                client-side device only loads requested items and contents by
+                user's action. This also saves client-side resources by
+                avoiding unnecessarily loading useless files and scripts.
+              </div>
+              <div class="textbox w3-border-bottom w3-border-green clickable" id="pro2">
+                Easy to manage and good result
+              </div>
+              <div id="pro2d" style="display: none">
+                As a characteristic of this concept, code on demand separates
+                rendering tasks and providing data. This allows the developer
+                to focus on content delivery and script creation separately,
+                and it gives the developer huge number of combinations of
+                different modules. By only supporting data and contents,
+                existing modules can render contents automatically, and the
+                developer can easily remove or add a module to update the
+                page.
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="pandc">
+              <h3>Cons</h3>
+              <div class="textbox w3-border-bottom w3-border-red clickable" id="con1">
+                Security concerns and potential risks
+              </div>
+              <div id="con1d" style="display: none">
+                Due to the increased number of communications between server
+                and client because of code on demand concept. Both sides may
+                start to show their vulnerability. If the server side does not
+                implement anti-XSS (Cross-site scripting) attack, unauthorized
+                JavaScript codes running on client side may lead to serious
+                security issues. For example, without proper protection, a
+                user can easily run his own code on the page. Moreover,
+                because the feature of code on demand, webpages using this
+                concept will be highly relied on CDN (content delivery
+                network) network to render pages. This creates a huge
+                security concern regarding the security of CDN security. It is
+                hard to count how many potential connections may be
+                established between CDNs and end users for a very complicated
+                webpage. These potential connections are hidden risks put end
+                users and server sides under risks. If contents in CDN are
+                intentionally replaced with malicious scripts, it will be very
+                hard to manage.
+              </div>
+              <div class="textbox w3-border-bottom w3-border-red clickable" id="con2">
+                Hard to navigate and unable to search
+              </div>
+              <div id="con2d" style="display: none">
+                In the case of dynamically updating the page, the user cannot
+                go back to the previous page state, because the browser can
+                only remember the static page in the history (stateless). The
+                difference between pages that has been read in its entirety
+                and one that has been dynamically modified is subtle; users
+                will often expect to click the back button to cancel their
+                previous action, but with the concept of code on demand, this
+                will be very hard to achieve.
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5"></div>
+
+          <!-- display summary and reference on user's click -->
+          <div class="col-lg-2">
+            <button class="btn-white w3-button" id="gotosummary">
+              Go To Summary
+            </button>
+          </div>
+          <div class="col-lg-5"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="middlepage col-lg-12" id="condiv" style="display: none">
+          <h1 id="contitle"></h1>
+          <div id="context" class="textbox"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="middlepage col-lg-12" id="summary" style="display: none">
+          <h1>Summary</h1>
+          <div class="textbox">
+            As webpages are becoming more powerful, loading contents from the
+            server is not a simple action as before. The concept of code on
+            demand brought developers to a new era. From the basic Applet to
+            the most advanced WebAssembly, the concept of code on demand leads
+            the development of JavaScript to an unprecedented level.
+          </div>
+          <h1>Reference</h1>
+          <div class="textbox">
+            Incapsula, 2022. How browsers work. [online] Taligarsiel.com.
+            Available at:
+            <a
+              href="http://taligarsiel.com/Projects/howbrowserswork1.html">http://taligarsiel.com/Projects/howbrowserswork1.html</a>
+            [Accessed 3 April 2022].
+          </div>
+          <div class="textbox">
+            Byrne, M., 2022. The Rise and Fall of the Java Applet: Creative
+            Coding's Awkward Little Square. [online] Vice.com. Available at:
+            <a
+              href=https://www.vice.com/en/article/8q8n3k/a-brief-history-of-the-java-applet>https://www.vice.com/en/article/8q8n3k/a-brief-history-of-the-java-applet</a>
+            [Accessed 3 April 2022].
+          </div>
+          <div class="textbox">
+            Gianluca, 2022. FadeIn on Scroll. [online] Codepen. Available at:
+            <a href="https://codepen.io/Gianx/pen/OJEdNo">https://codepen.io/Gianx/pen/OJEdNo</a>
+            [Accessed 3 April 2022].
+          </div>
+          <div class="textbox">
+            W3schools.com. 2022. How To Create a Timeline. [online] Available
+            at:
+            <a
+              href="https://www.w3schools.com/howto/howto_css_timeline.asp">https://www.w3schools.com/howto/howto_css_timeline.asp</a>
+            [Accessed 3 April 2022].
+          </div>
+          <div class="textbox">
+            Livebook.manning.com. 2022. Chapter 4. Functions: code on demand ·
+            Get Programming with JavaScript. [online] Available at:
+            <a
+              href="https://livebook.manning.com/book/get-programming-with-javascript/chapter-4/108">https://livebook.manning.com/book/get-programming-with-javascript/chapter-4/108</a>
+            [Accessed 3 April 2022].
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- the second main page, history -->
+    <!-- used display = none to make the concept page as the default one -->
+    <div id="history" class="w3-container tabs fadein" style="display: none">
+      <div class="historyintro">
+
+        <!-- history in words -->
+        <h1>History</h1>
+        <p class="textbox">
+          The history of code on demand begins from 1995 when Brendan Eich
+          invented JavaScript. At that time, almost all webpages were purely
+          developed by HTML. Because of stateless, webpages refreshes
+          whenever the user send requests to the server. To reduce the
+          server work load and achieve Asynchronous load, Java applet was
+          firstly introduced to run client-side application with Java
+          structure. Java applet applications have very limited functions,
+          such as displaying an animated logo. End users could send requests to
+          server to load such applications to execute via browser. It also has
+          good compatibility by being executable on Windows, Unix, and macOS.
+          Java applet used to have a pretty run speed because of its 3D
+          hardware acceleration. But this advantage became unnoticeable after
+          2011 since canvas technology was widely used. After HTML 5.0 became popular
+          in 2014, Java applet started to become unavailable, and it faded out
+          after 2017.
+        </p>
+        <p class="textbox">
+          After the introduction of Flash, Java applet became outdated.
+          Because Flash has a very good performance on animation and
+          communication with the server at that time. Flash became the only
+          way to play large multimedia content on webpages back in 2001 with
+          the average bandwidth under 1M. Many applications, medias embedded
+          in web pages relied on Flash, and its programming language
+          ActionScript also became very popular. At the era of ActionScript 3,
+          the performance of Flash enhanced a lot. It tried to develop some
+          enterprise-level interactions. Many governments and internet banking
+          websites began to use related technologies such as Adobe Flex.
+          However, the disadvantages became noticeable by compared with other
+          developing technologies, problems such as its security concerns, low
+          performance, and bad support for touch devices were hard to adapt
+          new requirements. In 2017, Adobe announced it would stop
+          supporting flash in 2021.
+        </p>
+        <p class="textbox w3-border-bottom" id="anchor">
+          The existence of these technologies made the development environment
+          chaotic in early 2000's. In 2010, Steven Jobs published a discussion
+          about problems of Flash. After that, Flash and other similar
+          platforms started losing markets because of HTML5. In comparison,
+          HTML5 have much better compatibility on mobile devices. Additional
+          to that, WebSockets and LocalStorage combining with CSS made HTML5
+          possible to handle complex website and applications with no security
+          compromise.
+        </p>
+      </div>
+      <div class="" id="historyheader">
+        <div class="row">
+          <div class="col-md-4"></div>
+
+          <div class="col-md-4">
+            <p class="textbox">Explore the timeline</p>
+            <button class="btn-white explorebtn" id="historybtn">
+              Get start
+            </button>
+            <p class="textbox">Content created by Ajax</p>
+          </div>
+          <div class="col-md-4"></div>
+        </div>
+      </div>
+
+      <!-- Because the timeline is generated by ajax, in case if the web is opened locally, 
+        and json file is blocked by CORS policy, error message and solutions will appear here -->
+      <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8" id="errorcontent"></div>
+        <div class="col-lg-2"></div>
+      </div>
+
+      <!-- history in timeline -->
+      <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8" id="historycontent"></div>
+        <div class="col-lg-2"></div>
+      </div>
+
+      <!-- a backup timeline section. in case if the ajax call does not work locally. -->
+      <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8 displaynone" id="loadhtml">
+          <div class="historydiv fadein html">
+            <h1>1991</h1>
+            <h1>Beginning of HTML</h1>
+            <p class="w3-border-top">Tim Berners-Lee invents HTML 1.0</p>
+          </div>
+          <div class="historydiv fadein html right">
+            <h1>1993</h1>
+            <h1>HTML 1.0 is released</h1>
+            <p class="w3-border-top">
+              Not many developers are creating websites at this time.
+            </p>
+          </div>
+          <div class="historydiv fadein html">
+            <h1>1995</h1>
+            <h1>HTML 2.0 is published</h1>
+            <p class="w3-border-top">
+              This contains the features of HTML 1.0 plus new features. This remained
+              the standard markup language for designing and creating websites until
+              1997.
+            </p>
+          </div>
+          <div class="historydiv fadein javascript right">
+            <h1>1995</h1>
+            <h1>Introduction of JavaScript</h1>
+            <p class="w3-border-top">
+              JavaScript was created for Netscape 2, and it became the standard in 1997.
+              It is well developed because of its advantages such as good compatibility.
+            </p>
+            <div class="imagediv">
+              <img src="pictures/IntroductionofJavaScript.jpg" alt="Introduction of JavaScript" />
+              <p>Macworld UK 2015</p>
+            </div>
+          </div>
+          <div class="historydiv fadein javaapplet">
+            <h1>1995</h1>
+            <h1>Introduction of Java applet</h1>
+            <p class="w3-border-top">
+              Java applets is able to provide animation, dynamic contents, communication
+              with the server, and client-side applications
+            </p>
+            <div class="imagediv">
+              <img src="pictures/IntroductionofJavaapplet.jpg" alt="Introduction of Javaapplet" />
+              <p>Sarang Ravate 2019</p>
+            </div>
+          </div>
+          <div class="historydiv fadein html right">
+            <h1>1996</h1>
+            <h1>iframe tag introduced</h1>
+            <p class="w3-border-top">
+              Internet Explorer added iframe tag to HTML, it supports asynchronous
+              refreshing the page.
+            </p>
+            <div class="imagediv">
+              <img src="pictures/iframetagintroduced.jpg" alt="iframe tag introduced" />
+              <p>Daniel Cruz Developer Blog 2015</p>
+            </div>
+          </div>
+          <div class="historydiv fadein html">
+            <h1>1997</h1>
+            <h1>HTML 3.0 was invented</h1>
+            <p class="w3-border-top">
+              Here, Dave Raggett introduced a fresh draft on HTML, which improved new
+              features of HTML and gave more powerful characteristics for webmasters in
+              designing websites.
+            </p>
+          </div>
+          <div class="historydiv fadein dom right">
+            <h1>1998</h1>
+            <h1>DOM introduced</h1>
+            <p class="w3-border-top">
+              DOM stands for Document Object Model. It helps developers to better format
+              HTML files by putting all elements in a DOM tree.
+            </p>
+            <div class="imagediv">
+              <img src="pictures/DOMintroduced.jpg" alt="DOM introduced" />
+              <p>Birger Eriksson 2022</p>
+            </div>
+          </div>
+          <div class="historydiv fadein html">
+            <h1>1999</h1>
+            <h1>HTML 4.0 was published</h1>
+            <p class="w3-border-top">
+              The widely-used HTML 4.0 comes out. It is very successful.
+            </p>
+          </div>
+          <div class="historydiv fadein ajax right">
+            <h1>1999</h1>
+            <h1>Ajax firstly introduced</h1>
+            <p class="w3-border-top">
+              The concept of Ajax was firstly introduced, Outlook Web became the first
+              commercial application using Ajax.
+            </p>
+            <div class="imagediv">
+              <img src="pictures/Ajaxfirstlyintroduced.jpg" alt="Ajax firstly introduced" />
+              <p>Daniel Cruz Developer Blog 2015</p>
+            </div>
+          </div>
+          <div class="historydiv fadein flash">
+            <h1>2001</h1>
+            <h1>Flash became popular</h1>
+            <p class="w3-border-top">
+              Flash has very good performance compared with Java applet back in 2001
+            </p>
+          </div>
+          <div class="historydiv fadein ajax right">
+            <h1>2005</h1>
+            <h1>Ajax became widely accepted</h1>
+            <p class="w3-border-top">
+              Google started to use asynchronous loading in its applications including
+              Google Maps, Gmail, and Google Search.
+            </p>
+          </div>
+          <div class="historydiv fadein jquery">
+            <h1>2006</h1>
+            <h1>jQuery created</h1>
+            <p class="w3-border-top">
+              jQuery is a JavaScript library, and it makes JavaScript coding fun by
+              stripping out all the necessary markup and leaving codes short, and
+              understandable.
+            </p>
+            <div class="imagediv">
+              <img src="pictures/jQuerycreated.jpg" alt="jQuery created" />
+              <p>W3schools 2022</p>
+            </div>
+          </div>
+          <div class="historydiv fadein html right">
+            <h1>2008</h1>
+            <h1>HTML 5.0 is released</h1>
+            <p class="w3-border-top">
+              HTML 5.0 is used worldwide. It is said to be the extended version of HTML
+              4.01 which was published in 2012.
+            </p>
+            <div class="imagediv">
+              <img src="pictures/HTML5isreleased.jpg" alt="HTML5 is released" />
+              <p>Atatus 2021</p>
+            </div>
+          </div>
+          <div class="historydiv fadein angular">
+            <h1>2009</h1>
+            <h1>AngularJS published by Google</h1>
+            <p class="w3-border-top">
+              AngularJS is an open-source web application framework maintained by
+              Google. It aims to enhance MVC mode to bring a clear SPA webpage.
+            </p>
+          </div>
+          <div class="historydiv fadein react right">
+            <h1>2010</h1>
+            <h1>React made open source by Facebook</h1>
+            <p class="w3-border-top">
+              React was originally developed by Facebook as a internal frontend
+              development framework run by JavaScript.
+            </p>
+            <div class="imagediv">
+              <img src="pictures/ReactmadeopensourcebyFacebook.jpg" alt="React made opensource by Facebook" />
+              <p>wikipedia 2022</p>
+            </div>
+          </div>
+          <div class="historydiv fadein vue">
+            <h1>2014</h1>
+            <h1>Vue became available</h1>
+            <p class="w3-border-top">
+              Vue is a JavaScript framework for building user interfaces. It provides a
+              declarative and component-based programming model that helps you
+              efficiently develop user interfaces, be it simple or complex.
+            </p>
+            <div class="imagediv">
+              <img src="pictures/Vuebecameavailable.jpg" alt="Vue became available" />
+              <p>vuejs.org 2022</p>
+            </div>
+          </div>
+          <div class="historydiv fadein javaapplet right">
+            <h1>2017</h1>
+            <h1>End of Java applet</h1>
+            <p class="w3-border-top">Java applets were deprecated by Java 9 in 2017.</p>
+          </div>
+          <div class="historydiv fadein webassembly">
+            <h1>2017</h1>
+            <h1>First appare of WebAssembly</h1>
+            <p class="w3-border-top">
+              WebAssembly allows webs to run binary code and has better performance
+              compared with JavaScript.
+            </p>
+            <div class="imagediv">
+              <img src="pictures/FirstappareofWebAssembly.jpg" alt="First appare of WebAssembly" />
+              <p>Carlos Baraza 2017</p>
+            </div>
+          </div>
+          <div class="historydiv fadein flash right">
+            <h1>2021</h1>
+            <h1>Flash end of life</h1>
+            <p class="w3-border-top">
+              Due to many restrictions and security concerns, in 2017, Adobe announced
+              they would stop updating Flash.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-2"></div>
+      </div>
+    </div>
+
+    <!-- the last main page, biography -->
+    <!-- used display = none to make the concept page as the default one -->
+    <div id="myself" class="w3-container tabs fadein" style="display: none">
+      <div class="row myselfpage" id="myselfheader">
+        <div class="col-md-2"></div>
+
+        <!-- a basic introduction to myself -->
+        <div class="col-md-4 introright">
+          <h1 class="textbox" id="anchor2">Good to see you!</h1>
+          <h1 class="textbox">I am Frank! </h1>
+          <h4 class="textbox">Xinyu Wang 23631069</h4>
+          <div class="textbox introtext">
+            Love design, DIY, driving, and photography
+          </div>
+          <button class="btn-white w3-button w3-border-bottom" id="startknowme">
+            Get to know me
+          </button>
+
+          <!-- in case if the user does not want to view pages one by one, there is a button to jump to the end. Everyone is in a rush :) -->
+          <div class="myselfoption">
+            <div class="textbox introtext">
+              If you want to jump to the end.. All yours:
+            </div>
+            <button class="btn-white w3-button" id="jumptocv">
+              To the end..
+            </button>
+          </div>
+        </div>
+
+        <!-- my selfie -->
+        <div class="col-md-4 introleft">
+          <img src="pictures/self.jpg" alt="me" />
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+
+      <!-- I break down my CV into separate pages. just to avoid boring texts -->
+      <div class="row myselfpage displaynone" id="myselfheader1">
+
+        <div class="col-md-4 introright">
+          <h2 class="textbox">
+            Came from China in 2014
+          </h2>
+          <div class="textbox introtext">
+            Beijing International Airport, 2014
+          </div>
+
+          <button class="btn-white w3-button w3-border-bottom" id="startknowme1">
+            Then?
+          </button>
+        </div>
+        <div class="col-md-4 introleft">
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2"></div>
+      </div>
+
+      <div class="row myselfpage displaynone" id="myselfheader2">
+        <div class="col-md-2"></div>
+        <div class="col-md-4 introleft">
+        </div>
+        <div class="col-md-2"></div>
+
+        <div class="col-md-4 introright">
+          <h2 class="textbox">Stayed in Adelaide in the past 8 years
+            from highschool to univeristy.
+          </h2>
+          <div class="textbox introtext">
+            Adelaide City, 2021
+          </div>
+          <button class="btn-white w3-button w3-border-bottom" id="startknowme2">
+            During this period?
+          </button>
+        </div>
+      </div>
+
+      <div class="row myselfpage displaynone" id="myselfheader3">
+        <div class="col-md-4 introright">
+          <h2 class="textbox">Used to be a photographer and film editor.
+          </h2>
+          <div class="textbox introtext">
+            Interview with the mayor, City Townhall, Adelaide 2018
+          </div>
+          <button class="btn-white w3-button w3-border-bottom" id="startknowme3">
+            After that?
+          </button>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4 introleft">
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+
+      <div class="row myselfpage displaynone" id="myselfheader4">
+        <div class="col-md-2"></div>
+        <div class="col-md-4 introleft">
+        </div>
+        <div class="col-md-4 introright">
+          <h2 class="textbox">
+            Worked as an IT support and web developer.
+          </h2>
+          <div class="textbox introtext">
+            Mikrotik Routers, 2019
+          </div>
+          <button class="btn-white w3-button w3-border-bottom" id="startknowme4">
+            Did you say you love driving?
+          </button>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+
+      <div class="row myselfpage displaynone" id="myselfheader5">
+
+        <div class="col-md-2"></div>
+        <div class="col-md-4 introleft">
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4 introright">
+          <h2 class="textbox">
+            Spent half year in the tow truck before came back to Uni.
+          </h2>
+          <div class="textbox introtext">
+            Magill SA, 2021
+          </div>
+          <div class="textbox introtext">
+            shhh.. This police officer put petrol in a diesel Kia Sorento.
+          </div>
+          <button class="btn-white w3-button w3-border-bottom" id="startknowme5">
+            Your interests?
+          </button>
+        </div>
+      </div>
+
+      <div class="row myselfpage displaynone" id="myselfheader6">
+
+        <div class="col-md-2"></div>
+        <div class="col-md-4 introleft">
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4 introright">
+          <h2 class="textbox">
+            I love design and creation
+          </h2>
+          <div class="textbox introtext">
+            Designed a floorplan and implemented, 2020
+          </div>
+          <button class="btn-white w3-button w3-border-bottom" id="startknowme6">
+            Then?
+          </button>
+        </div>
+      </div>
+
+      <div class="row myselfpage displaynone" id="myselfheader7">
+
+        <div class="col-md-2"></div>
+        <div class="col-md-4 introright">
+          <h2 class="textbox">
+            DIY is my spirit
+          </h2>
+          <div class="textbox introtext">
+            Put a starlight roof, 2018
+          </div>
+          <button class="btn-white w3-button w3-border-bottom" id="startknowme7">
+            Okay..
+          </button>
+        </div>
+        <div class="col-md-4 introleft">
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+
+
+      <div class="row myselfpage displaynone" id="myselfheader8">
+
+        <div class="col-md-2"></div>
+        <div class="col-md-4 introleft">
+        </div>
+        <div class="col-md-4 introright">
+          <h2 class="textbox">
+            That's me! Thank you so much for your time on my site! Have a GREAT day!
+          </h2>
+          <div class="textbox introtext">
+            Outback, SA 2021
+          </div>
+          <div class="textbox introtext">
+            If you still want to see my CV...
+          </div>
+          <button class="btn-white w3-button w3-border-bottom" id="startknowme8">
+            My CV:
+          </button>
+        </div>
+        <div class="col-md-2"></div>
+
+      </div>
+
+      <!-- the above divs should be enough to introduce myself. just in case if the above divs are not enough. I prepared my
+      CV in html format. -->
+      <div class="row mycv" id="cvdiv" style="display: none">
+        <div class="col-lg-2 col-md-1"></div>
+        <div class="col-lg-4 col-md-5 col-sm-6 mycvcol">
+          <div class="mycvdiv">
+            <div class="mycvtitle">
+              Profile Summary
+            </div>
+            <div class="mycvcontentlist">
+              Solution oriented networking maintainer with detailed approaches focusing on security and integrity.
+            </div>
+            <div class="mycvcontentlist">
+              Circumspect networking troubleshooter.
+            </div>
+            <div class="mycvcontentlist">
+              Creative photographer and graphic designer with 7+ years of experiences of Photoshop.
+            </div>
+            <div class="mycvcontentlist">
+              Passionate video maker with Final Cut Pro X and semi-professional equipments.
+            </div>
+          </div>
+
+          <div class="mycvdiv">
+            <div class="mycvtitle">
+              Technical Skills
+            </div>
+            <div class="mycvcontentlist">
+              Design network solutions for small& medium size business
+            </div>
+            <div class="mycvcontentlist">
+              Solve and identify problems in a network infrastructure
+            </div>
+            <div class="mycvcontentlist">
+              Configure Cisco network devices with security and redundant features
+            </div>
+            <div class="mycvcontentlist">
+              Web creation
+            </div>
+            <div class="mycvcontentlist">
+              Graphic design via Adobe Photoshop
+            </div>
+            <div class="mycvcontentlist">
+              3D modelling via Autodesk 3Ds MAX and Rhino 6.0
+            </div>
+            <div class="mycvcontentlist">
+              Film editing and Visual effects
+            </div>
+            <div class="mycvcontentlist">
+              MR Heavy Truck License
+            </div>
+
+          </div>
+
+          <div class="mycvdiv">
+            <div class="mycvtitle">
+              Degree Related Project
+            </div>
+            <div class="mycvcontent">
+              I had a graduation project regarding networking creation and
+              configuration. I was mainly taking care of topology development
+              and network device configurations during the time of doing the
+              project. The project had good feedback and results from our
+              client and the university supervisor gave us a distinct as the
+              final result.
+            </div>
+          </div>
+
+          <div class="mycvdiv">
+            <div class="mycvtitle">
+              Volunteering experience
+            </div>
+            <div class="mycvsubtitle1">
+              CLCN (Chinese Language & Culture Network
+            </div>
+            <div class="mycvsubtitle2">
+              May 2019 - Current
+            </div>
+            <div class="mycvcontentlist">
+              Filmed and Edited promotional video for 2 large events
+            </div>
+            <div class="mycvcontentlist">
+              Created promotional posters for many events
+            </div>
+            <div class="mycvcontentlist">
+              Participated in advising event marketing plans
+            </div>
+
+            <div class="mycvsubtitle1">
+              Google IO Event
+            </div>
+            <div class="mycvsubtitle2">
+              June 2018
+            </div>
+            <div class="mycvcontentlist">
+              Filmed and edited videos and photos.
+            </div>
+            <div class="mycvcontentlist">
+              Pre-prepared the lecture theatre
+            </div>
+            <div class="mycvcontentlist">
+              Participated in advising event marketing plans
+            </div>
+          </div>
+          <div class="mycvdiv">
+            <div class="mycvtitle">
+              Self evaluation
+            </div>
+            <div class="mycvcontent">
+              I have been exposed to the daily activities of various industries (wine, media, catering, auto repair,
+              farms, real estate) during my study period, and have a relatively familiar understanding of them.
+            </div>
+            <div class="mycvcontent">
+              I have a deep understanding of Australian culture by driving many times into the central, northern and
+              eastern of the country.
+            </div>
+            <div class="mycvcontent">
+              I am familiar with the network architecture and daily IT tasks of a typical large company with more than
+              500 people and more than 50+ site offices.
+            </div>
+            <div class="mycvcontent">
+              So, I have the ability to improve network architecture efficiency, optimise configuration, troubleshooting
+              and data analysis; I also have good collaboration, communication and innovation capabilities, and I can
+              quickly adapt to high-intensity work.
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-4 col-md-5 col-sm-6 mycvcol">
+          <div class="mycvdiv">
+            <div class="mycvtitle">
+              Work Experience
+            </div>
+            <div class="mycvsubtitle1">
+              Tow Truck Driver
+            </div>
+            <div class="mycvsubtitle2">
+              Dial A Tow, August 2021 - February 2022
+            </div>
+            <div class="mycvcontent">
+              Working as a tow trucker driver is my dream. The job mainly focuses on vehicle recoveries including
+              accident
+              towing, jobs from police, and roadside assistance. This position improved my skills not only in driving
+              and
+              towing, but also my confidence in independent problem-solving, working under pressure, and communication.
+            </div>
+
+            <div class="mycvsubtitle1">
+              Website Developer
+            </div>
+            <div class="mycvsubtitle2">
+              Tmatt Technology, March 2020 - March 2021
+            </div>
+            <div class="mycvcontent">
+              The role of this position is to create pages for a website project via Ruby on Rails. I have implemented
+              various of knowledge to try to get a good result, including Photoshop, and InDesign.
+            </div>
+
+            <div class="mycvsubtitle1">
+              IT & Network Support Officer
+            </div>
+            <div class="mycvsubtitle2">
+              Community Living Options, November 2019 - March 2020
+            </div>
+            <div class="mycvcontent">
+              As the IT support staff of the company, I took care of maintaining the existing network structure and
+              solving IT related problems. I also have been involved in many projects (VPN, Server migration, Operating
+              instruction creation) since I started in November 2019.
+            </div>
+
+            <div class="mycvsubtitle1">
+              Photographer
+            </div>
+            <div class="mycvsubtitle2">
+              Yiben Media, June 2018 - June 2019
+            </div>
+            <div class="mycvcontent">
+              I worked for this media company as a photographer as a part-time job to do photography and create short
+              promotional videos. In addition to that, I did visual effect creation and IT support for the company. I
+              picked this position because media production is one of my major interests.
+            </div>
+          </div>
+
+          <div class="mycvdiv">
+            <div class="mycvtitle">
+              Ongoing Education
+            </div>
+            <div class="mycvsubtitle1">
+              The University of Western Australia
+            </div>
+            <div class="mycvsubtitle2">
+              Master of IT
+            </div>
+            <div class="mycvsubtitle2">
+              February 2022 - Current
+            </div>
+          </div>
+
+          <div class="mycvdiv">
+            <div class="mycvtitle">
+              Past Education
+            </div>
+            <div class="mycvsubtitle1">
+              Navitas Professional
+            </div>
+            <div class="mycvsubtitle2">
+              ACS Professional Year Program &
+              Certificate IV in Business (Professional Year Program)
+            </div>
+            <div class="mycvsubtitle2">
+              March 2019 - March 2020
+            </div>
+            <div class="mycvcontentlist">
+              Improved the understanding of Australia working culture
+            </div>
+            <div class="mycvcontentlist">
+              Enhanced communication and presentation skills
+            </div>
+            <div class="mycvcontentlist">
+              Practised social networking related knowledge.
+            </div>
+
+            <div class="mycvsubtitle1">
+              The University of South Australia
+            </div>
+            <div class="mycvsubtitle2">
+              Bachelor of Science in IT (Networking & Cybersecurity)
+            </div>
+            <div class="mycvsubtitle2">
+              February 2017 - December 2018
+            </div>
+            <div class="mycvcontentlist">
+              Graduated with GPA 5.28
+            </div>
+            <div class="mycvcontentlist">
+              Finished as a detailed networking troubleshooter with CCNA and CCNP courses
+            </div>
+            <div class="mycvcontentlist">
+              Completed with Web development skills
+            </div>
+            <div class="mycvcontentlist">
+              The Graduate project finished with distinct grade
+            </div>
+            <div class="mycvcontentlist">
+              Gained good understanding of network design processes
+            </div>
+
+            <div class="mycvsubtitle1">
+              The University of South Australia
+            </div>
+            <div class="mycvsubtitle2">
+              Diploma of Information Technology
+            </div>
+            <div class="mycvsubtitle2">
+              February 2016 - December 2016
+            </div>
+            <div class="mycvcontentlist">
+              Finished with Python & Java programming skills
+            </div>
+            <div class="mycvcontentlist">
+              Briefly understood the process of project management
+            </div>
+            <div class="mycvcontentlist">
+              Gained basic understanding of IT fundamentals
+            </div>
+          </div>
+
+          <div class="mycvdiv">
+            <div class="mycvtitle">
+              Referees
+            </div>
+            <div class="mycvcontent">
+              Available upon request.
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-1"></div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<!-- thank you so much for reading my comments and codes. Have a great day! -->
+
+</html>
