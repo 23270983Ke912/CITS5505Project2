@@ -37,7 +37,7 @@ var init = function(){
         }
     }
 
-    console.log("sadd")
+    console.log("saddsfd")
 
     //設定所有珠子的尺寸及框線
     $('.tile').css('width', tile_w-tile_b*2);
