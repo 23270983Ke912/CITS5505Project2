@@ -24,10 +24,7 @@ var pickRandColor = function(){
 var loadColor = function(i,j){
     return loaddata_clrs[i][j];
 }
-var loadfellColor = function(i,j){
-    return felldata_clrs[i][j];
-}
-cd  
+
 //初始化盤面
 var init = function(){
     //盤面大小
@@ -43,15 +40,6 @@ var init = function(){
 
 
 
-    $('.demo2').css('width', dim_x*tile_w).css('height', dim_y*tile_h);
-    //產生珠子並指定位置、顏色
-    for(i=0; i<dim_y; i++){
-        for(j=0; j<dim_x; j++){
-            //var clr = pickRandColor();
-            var clr = loadfellColor(i,j);
-            $('.demo2').append('<div id="'+j+'-'+i+'" data-clr="'+clr+'" class="'+clr+' tile" style="left:'+j*tile_w+'px; top:'+i*tile_h+'px;"></div>');
-        }
-    }
     //設定所有珠子的尺寸及框線
     $('.tile').css('width', tile_w-tile_b*2);
     $('.tile').css('height', tile_h-tile_b*2);

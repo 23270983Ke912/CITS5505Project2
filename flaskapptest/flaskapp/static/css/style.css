@@ -1,13 +1,13 @@
 html {
     font-family: sans-serif;
-    background: #eee;
+    background: #a34f16;
     padding: 1rem;
 }
 
 body {
     height: 100vh;
     margin: 0 auto;
-    background-image: url("pics/background.jpg")
+    background: #ffa5a2;
 }
 
 .gamediv{
@@ -31,7 +31,11 @@ body {
     width: 150px;
     background-repeat: no-repeat;
     background-size: contain;
+    transition: 0.3s;
 }
+.buttondiv:hover {
+    filter: drop-shadow(0px 0px 10px #ffffff);
+  }
 
 @media screen and (max-width: 768px) {
 	.buttondiv {
