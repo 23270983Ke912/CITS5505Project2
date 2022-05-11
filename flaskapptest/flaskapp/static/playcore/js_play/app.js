@@ -1,5 +1,5 @@
 var $ = jQuery.noConflict();
-var loaddata_clrs = [['b','b','r','r','b','b'],['y','y','b','b','y','y'],['p','p','y','y','p','p'],['g','g','r','r','g','g'],['r','r','b','b','r','r']]
+var loaddata_clrs = [['b','b','r','r','b','b'],['y','y','b','b','y','y'],['p','p','y','y','p','p'],['g','g','r','r','g','g'],['r','r','b','b','r','r']];
 
 var def_clrs = ['r','g','b','p','p','p','p','y']; //紅,綠,藍,紫,黃
 var dim_x = 6; //盤面x顆數
@@ -17,7 +17,6 @@ var combo_cnt;
 
 //隨機挑色
 var pickRandColor = function(){
-    console.log(myrng.quick())
     var r = Math.floor(myrng()*def_clrs.length);
     return def_clrs[r];
 }       
@@ -60,11 +59,13 @@ $(function() {
             selTop = ui.offset.top;
             pos_x = selLeft/tile_w;
             pos_y = selTop/tile_h;
+          
             var cur_n = pos_x+'-'+pos_y; //拖曳中珠子的位置 "x-y"，與ID相同
             //目標位置與ID不同時，表示被移動了
             if (cur_n!=$(this).attr('id')){
                 var ori = $(this).attr('id'); //原本的ID(即原本的位置)
                 moveTo(cur_n, ori); //將目標位置的珠子移到原本拖曳中珠子的位置
+                
                 $(this).attr('id', cur_n); //拖曳中珠子標示為新位罝ID
             }
         },
@@ -157,6 +158,7 @@ function makeChain() {
             //$('#'+x+'-'+y).html(flagMatrix[x][y].repeatX+':'+flagMatrix[x][y].repeatY);
         }
     }
+
     // 記錄完Chain了，開始準備消除珠子
     var flag = false;
     var aryChk = new Array();
@@ -170,8 +172,8 @@ function makeChain() {
             }
         }
     }
-    console.log(aryChains);
-    
+   
+  
     var combo_n = 0;
     for ( var i = 0; i < aryChains.length; i++){
         if (!isChecked(aryChk, aryChains[i])){
