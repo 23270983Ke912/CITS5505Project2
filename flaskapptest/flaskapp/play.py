@@ -17,5 +17,5 @@ def index():
         ' ORDER BY created DESC'
     ).fetchall()
 
-    iframe = url_for('static', filename='/playcore/puzzle.html')
+    iframe = url_for('static', filename='playcore/puzzle.html')
     return render_template('play/play.html', iframe=iframe)

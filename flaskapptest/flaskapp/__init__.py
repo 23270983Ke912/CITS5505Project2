@@ -8,11 +8,7 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         #SECRET_KEY='dev',
-<<<<<<< HEAD
         DATABASE=os.path.join(app.instance_path, 'flaskapp.sqlite'),
-=======
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
->>>>>>> 7c91645dfb9cdd53a93f83aa67c818fd032203b5
     )
     app.secret_key = os.environ.get('SECRET_KEY', 'dev')
 
@@ -41,12 +37,9 @@ def create_app(test_config=None):
     from . import auth
     app.register_blueprint(auth.bp)
 
-<<<<<<< HEAD
     from . import play
     app.register_blueprint(play.bp)
 
-=======
->>>>>>> 7c91645dfb9cdd53a93f83aa67c818fd032203b5
     from . import blog
     app.register_blueprint(blog.bp)
     app.add_url_rule('/', endpoint='index')

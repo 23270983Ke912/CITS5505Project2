@@ -1,6 +1,5 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} - WebApplication</title>
-<<<<<<< HEAD
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 <script type="application/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script>
@@ -13,11 +12,6 @@
 
 <nav>
   <h1>A FUN PUZZLE</h1>
-=======
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav>
-  <h1>WebApplication auth</h1>
->>>>>>> 7c91645dfb9cdd53a93f83aa67c818fd032203b5
   <ul>
     {% if g.user %}
       <li><span>{{ g.user['username'] }}</span>
