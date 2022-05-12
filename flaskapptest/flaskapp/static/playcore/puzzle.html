@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<title>Document</title>
 	<style>
 		body{margin:0;}
@@ -10,6 +10,7 @@
 		    /*float: left; */
 		    position:absolute;
 		    margin: 0 0px 0px 0;
+			cursor: grab;
 		    /*border-radius:20px;*/
             
 		}
@@ -27,6 +28,7 @@
 		.demo{
 		    background-color:#333;
 		}
+		
 		.sel{
 		    /*
 		    opacity:0.5;
@@ -37,11 +39,49 @@
 		    box-shadow:2px 2px 3px 3px rgba(20%,20%,20%,0.5) inset;
 		}
 		.gone{background-color:#fff;}
+
+	.progress{
+    position: relative;
+    height: 10px;
+    width: 94%;
+    border: 10px solid #f4a261;
+    border-radius: 15px;
+	}
+	.progress .countdown{
+		position: absolute;
+		background-color: #ffffff;
+		width: 0px;
+		height: 10px;
+		border-radius: 15px;
+		animation: progres 8s linear;    
+	}
+	@keyframes progres{
+		0%{
+		width: 100%;
+		}
+		25%{
+			width: 75%;
+		}
+		50%{
+			width: 50%;
+		}
+		75%{
+			width: 25%;
+		}
+		100%{
+			width: 0%;
+		}
+	};
 	</style>
 </head>
 <body>
 	<div class="demo"></div>
+	<div class="progress">
+		<div id="countdownline"></div>
+	  </div>
+	<div>Timer:<input type="text" id="timer"></div>
 	<div>Combo:<input type="text" id="combo"></div>
+	<div>Score:<input type="text" id="score"></div>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
     <script src="js_play/jquery.ui.touch-punch.min.js"></script>

@@ -1,5 +1,5 @@
 var $ = jQuery.noConflict();
-var loaddata_clrs = [['b','b','r','r','b','b'],['y','y','b','b','y','y'],['p','p','y','y','p','p'],['g','g','r','r','g','g'],['r','r','b','b','r','r']]
+var loaddata_clrs = [['b','b','r','r','b','b'],['y','y','b','b','y','y'],['p','p','y','y','p','p'],['g','g','r','r','g','g'],['r','r','b','b','r','r']];
 
 var def_clrs = ['r','g','b','p','p','p','p','y']; //紅,綠,藍,紫,黃
 var dim_x = 6; //盤面x顆數
@@ -14,10 +14,13 @@ var move_speed = 160; // 移動珠子的速度
 var gone_speed = 300; // 珠子消除的速度
 var myrng = new Math.seedrandom('cits');
 var combo_cnt;
+var score;
+var moveHistory = new Array();
+
+
 
 //隨機挑色
 var pickRandColor = function(){
-    console.log(myrng.quick())
     var r = Math.floor(myrng()*def_clrs.length);
     return def_clrs[r];
 }       
@@ -34,17 +37,16 @@ var init = function(){
         for(j=0; j<dim_x; j++){
             //var clr = pickRandColor();
             var clr = loadColor(i,j);
-            $('.demo').append('<div id="'+j+'-'+i+'" data-clr="'+clr+'" class="'+clr+' tile" style="left:'+j*tile_w+'px; top:'+i*tile_h+'px;"></div>');
+            $('.demo').append('<div id="'+j+'-'+i+'" data-clr="'+clr+'" class="'+clr+' tile" style="left:'+j*tile_w+'px; top:'+i*tile_h+'px;"  ></div>');
         }
     }
-
-
 
     //設定所有珠子的尺寸及框線
     $('.tile').css('width', tile_w-tile_b*2);
     $('.tile').css('height', tile_h-tile_b*2);
     $('.tile').css('border', tile_b+'px solid #333');
     combo_cnt=0;
+    score=0;
 }
 
 $(function() {
@@ -52,9 +54,28 @@ $(function() {
 
     $(".tile").draggable({
         grid: [parseInt(tile_w), parseInt(tile_h)], //拖曳時移動單位(以一個珠子的尺寸為移動單位)
+        start:function(e, ui){
+            $("#countdownline").addClass('countdown');
+            moveHistory= new Array();
+            moveHistory.push(ui.offset.left/tile_w+'-'+ui.offset.top/tile_h)
+            var count = 8;
+            $('#timer').val(count);
+            var timer =setInterval(function() {
+                count--;
+                $('#timer').val(count);
+                // update timer here
+
+                if (count === 0) {
+                    $(document).trigger("mouseup");
+                    clearInterval(timer);
+                }
+            }, 1000);
+        },
         drag: function(e, ui){
             combo_cnt=0;
+            score=0;
             $('#combo').val(combo_cnt);
+            $('#score').val(score);
             $(this).addClass('sel'); //拖曳中珠子的樣式
             selLeft = Math.abs(ui.offset.left);
             selTop = ui.offset.top;
@@ -64,11 +85,15 @@ $(function() {
             //目標位置與ID不同時，表示被移動了
             if (cur_n!=$(this).attr('id')){
                 var ori = $(this).attr('id'); //原本的ID(即原本的位置)
+                
+                moveHistory.push(cur_n);
                 moveTo(cur_n, ori); //將目標位置的珠子移到原本拖曳中珠子的位置
                 $(this).attr('id', cur_n); //拖曳中珠子標示為新位罝ID
             }
         },
         stop: function(e, ui){
+            $("#countdownline").removeClass('countdown');
+            console.log("moveHistory",moveHistory)
             $(this).removeClass('sel');//停止拖曳就取消拖曳中樣式
             makeChain();//開始計算要消除的Chain
         },
@@ -157,6 +182,7 @@ function makeChain() {
             //$('#'+x+'-'+y).html(flagMatrix[x][y].repeatX+':'+flagMatrix[x][y].repeatY);
         }
     }
+
     // 記錄完Chain了，開始準備消除珠子
     var flag = false;
     var aryChk = new Array();
@@ -166,12 +192,13 @@ function makeChain() {
     for ( x = 0; x < dim_x; x++) {
         for ( y = 0; y < dim_y; y++) {
             if (flagMatrix[x][y].repeatX > 1 || flagMatrix[x][y].repeatY > 1) {
+                score+=10
                 aryChains.push(x+'-'+y);
             }
         }
     }
-    console.log(aryChains);
-    
+   
+  
     var combo_n = 0;
     for ( var i = 0; i < aryChains.length; i++){
         if (!isChecked(aryChk, aryChains[i])){
@@ -243,6 +270,7 @@ function makeChain() {
             
         }
         $('#combo').val(++combo_cnt);
+        $('#score').val(score);
         /*
         $('.c'+d).each(function(){
             $(document).queue((function (el) {
@@ -275,7 +303,7 @@ function makeChain() {
     $( ".tile" ).promise().done(function() {
         if (flag){
             $('.tile').css('opacity',1);
-            //console.log(flagMatrix);
+            console.log(flagMatrix);
             gravity();
         }
     });
