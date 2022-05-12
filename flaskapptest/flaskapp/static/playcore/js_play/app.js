@@ -51,16 +51,17 @@ var init = function(){
 
 $(function() {
     init();
-
+    var timer ;
     $(".tile").draggable({
         grid: [parseInt(tile_w), parseInt(tile_h)], //拖曳時移動單位(以一個珠子的尺寸為移動單位)
         start:function(e, ui){
+            $("#progress").removeClass("hidden").addClass("shown");
             $("#countdownline").addClass('countdown');
             moveHistory= new Array();
             moveHistory.push(ui.offset.left/tile_w+'-'+ui.offset.top/tile_h)
             var count = 8;
             $('#timer').val(count);
-            var timer =setInterval(function() {
+            timer =setInterval(function() {
                 count--;
                 $('#timer').val(count);
                 // update timer here
@@ -92,6 +93,9 @@ $(function() {
             }
         },
         stop: function(e, ui){
+            $('#timer').val(0);
+            clearInterval(timer);
+            $("#progress").removeClass("shown").addClass("hidden");
             $("#countdownline").removeClass('countdown');
             console.log("moveHistory",moveHistory)
             $(this).removeClass('sel');//停止拖曳就取消拖曳中樣式
