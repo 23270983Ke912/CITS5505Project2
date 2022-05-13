@@ -17,7 +17,9 @@
       <li><span>{{ g.user['username'] }}</span>
       <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
       {% if g.user['isadmin'] == 1 %}
-      <li><a href="{{ url_for('auth.logout') }}">Edit Puzzle</a>
+      <li><a href="{{ url_for('play.edit') }}">Edit Puzzle</a>
+      <li><a href="{{ url_for('play.edit') }}">Manage User</a>
+
       {% endif %}
     {% else %}
       <li><a href="{{ url_for('auth.register') }}">Register</a>
