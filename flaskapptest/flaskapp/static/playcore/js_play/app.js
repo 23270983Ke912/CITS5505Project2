@@ -111,7 +111,6 @@ function moveTo(id, pos){
     var x = aryPos[0]*tile_w;
     var y = aryPos[1]*tile_h;
     $('#'+id).animate({'top':y, 'left':x}, {'duration':move_speed});
-    //$('#'+id).offset({top:y, left:x});
     $('#'+id).attr('id',pos);
 }
 
