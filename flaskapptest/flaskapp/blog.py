@@ -9,14 +9,16 @@ from flaskapp.db import get_db
 bp = Blueprint('blog', __name__)
 
 @bp.route('/')
-def index():
+def score():
+    
     db = get_db()
-    posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY created DESC'
+    scores = db.execute(
+        'SELECT s.id, maxcombo, score, created, player_id, username'
+        ' FROM score s JOIN user u ON s.player_id = u.id'
+        ' ORDER BY score DESC'
     ).fetchall()
-    return render_template('blog/index.html', posts=posts)
+
+    return render_template('index.html', scores=scores)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
