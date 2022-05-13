@@ -1,0 +1,80 @@
+body{margin:0;}
+.tile{ 
+    /*float: left; */
+    position:absolute;
+    margin: 0 0px 0px 0;
+    cursor: grab;
+    /*border-radius:20px;*/
+    
+}
+
+.tile_edit{
+    float: left;
+    margin: 0 0px 0px 0;
+}
+
+.tile:hover{
+    box-shadow:2px 2px 3px 3px rgba(20%,20%,20%,0.2) inset;
+}
+.tile:active{
+    box-shadow:2px 2px 3px 3px rgba(20%,20%,20%,0.5) inset;
+}
+.r{background-color:#f00;}
+.g{background-color:#0f0;}
+.b{background-color:#00f;}
+.p{background-color:#a2a;}
+.y{background-color:#ff2;}
+.demo{
+    background-color:#333;
+    margin-bottom: 20px;
+}
+
+.sel{
+    /*
+    opacity:0.5;
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5; 
+    filter:alpha(opacity=50);
+    */
+    box-shadow:2px 2px 3px 3px rgba(20%,20%,20%,0.5) inset;
+}
+.gone{background-color:#fff;}
+
+.progress{
+position: relative;
+height: 10px;
+width: 94%;
+border: 10px solid #f4a261;
+border-radius: 15px;
+}
+.progress .countdown{
+position: absolute;
+background-color: #ffffff;
+width: 0px;
+height: 10px;
+border-radius: 15px;
+animation: progres 8s linear;    
+}
+.hidden{
+visibility: hidden;
+}
+.shown{
+visibility: visible;
+}
+@keyframes progres{
+0%{
+width: 100%;
+}
+25%{
+    width: 75%;
+}
+50%{
+    width: 50%;
+}
+75%{
+    width: 25%;
+}
+100%{
+    width: 0%;
+}
+};
