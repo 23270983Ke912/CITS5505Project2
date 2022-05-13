@@ -25,7 +25,7 @@ def countdown():
 def play():
 
     iframe = url_for('static', filename='playcore/puzzle.html')
-    loaddata_clrs = [['b','b','r','r','b','b'],['y','y','b','b','y','y'],['p','p','y','y','p','p'],['g','g','r','r','g','g'],['r','r','b','b','r','r']]
+    loaddata_clrs = [['g','g','r','r','b','b'],['y','y','b','b','y','y'],['p','p','y','y','p','p'],['g','g','r','r','g','g'],['r','r','b','b','r','r']]
     def_clrs = ['r','g','b','p','p','p','p','y']
 
     return render_template('play/play.html', iframe=iframe,loaddata_clrs=loaddata_clrs ,def_clrs=def_clrs)

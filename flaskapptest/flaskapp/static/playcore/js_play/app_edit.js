@@ -63,7 +63,7 @@ $('.tile_edit').click(function() {
     for (  y = 0; y < dim_y; y++) {
         var xrow= new Array();
         for ( x = 0; x < dim_x; x++) {
-            xrow.push($('#'+x+'-'+y).attr('data-clr'));
+            xrow.push("'"+$('#'+x+'-'+y).attr('data-clr')+"'");
         }
         submitedit.push('['+xrow+']');
     }
