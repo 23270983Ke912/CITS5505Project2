@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<title>Document</title>
+	<style>
+		body{margin:0;}
+		.tile{
+		    float: left;
+		    margin: 0 0px 0px 0;
+		    /*border-radius:20px;*/
+		}
+		.tile_edit{
+			float: left;
+		    margin: 0 0px 0px 0;
+		}
+        .tile:hover{
+            box-shadow:2px 2px 3px 3px rgba(20%,20%,20%,0.2) inset;
+        }
+        .tile:active{
+            box-shadow:2px 2px 3px 3px rgba(20%,20%,20%,0.5) inset;
+        }
+		.r{background-color:#f00;}
+		.g{background-color:#0f0;}
+		.b{background-color:#00f;}
+		.p{background-color:#a2a;}
+		.y{background-color:#ff2;}
+		.demo{
+		    background-color:#333;
+		}
+		
+		.sel{
+		    /*
+		    opacity:0.5;
+		    -moz-opacity:0.5;
+		    -khtml-opacity: 0.5; 
+		    filter:alpha(opacity=50);
+		    */
+		    box-shadow:2px 2px 3px 3px rgba(20%,20%,20%,0.5) inset;
+		}
+		.gone{background-color:#fff;}
+		.top-buffer { margin-top:20px; }
+
+
+
+	</style>
+</head>
+<body>
+	<div class="demo"></div>
+
+	<div class="container">
+	  <div class="row top-buffer"> 
+		<div  id="r" class="tile_edit r" ></div>
+		<div  id="g" class="tile_edit g" ></div>
+		<div  id="b" class="tile_edit b" ></div>
+		<div  id="y" class="tile_edit y" ></div>
+		<div  id="p" class="tile_edit p" ></div>
+	  </div>
+	</div>
+	<div>Score:<input type="submit" id="submit"></div>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="js_play/jquery.ui.touch-punch.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+    <script src="js_play/app_edit.js"></script>
+</body>
+</html>
