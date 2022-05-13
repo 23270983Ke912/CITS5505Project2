@@ -6,20 +6,20 @@
 
 {% block content %}
 
-<div class="row" >
+<div class="row">
   <div class="col-sm-3 col-xs-12 centerdiv maindivs">
     <div class="row">
       <div class="col-sm-12 col-xs-6 centerdiv">
         <a href="/play#iFrame1">
           <div class="play buttondiv">
-              
+
           </div>
         </a>
       </div>
       <div class="col-sm-12 col-xs-6 centerdiv">
         <a href="/restart">
           <div class="restart buttondiv">
-              
+
           </div>
         </a>
       </div>
@@ -27,23 +27,33 @@
   </div>
 
   <div class="col-sm-6 col-xs-12 scoreboarddiv gamediv maindivs">
-  
-  <div class="row">
-    <div class="col-xs-12">
-    <h1>{% block title %}Score Board {% endblock %}</h1>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h1>{% block title %}Score Board {% endblock %}</h1>
+      </div>
+      <div class="col-xs-12">
+        <table id="scoreboard">
+          <tr>
+            <th>Scores</th>
+            <th>Max Combo</th>
+            <th>Date</th>
+            <th>Player</th>
+          </tr>
+          {% for post in posts %}
+          <tr>
+            <td>{{ post['maxcombo'] }}</td>
+            <td>{{ post['body'] }}</td>
+            <td>{{ post['score'].strftime('%Y-%m-%d') }}</td>
+            <td>{{ post['player_id'] }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
     </div>
-    <div class="col-xs-12">
-  <table id="scoreboard">
-    <tr><th>Scores</th><th>Max Combo</th><th>Date</th><th>Player</th></tr>
-    {% for post in posts %}
-      <tr><td>{{ post['title'] }}</td><td>{{ post['body'] }}</td><td>{{ post['created'].strftime('%Y-%m-%d') }}</td><td>{{ post['username'] }}</td></tr>
-    {% endfor %}
-  </table>
-</div>  
-</div>
 
 
-  <!-- {% for score in scores %}
+    <!-- {% for score in scores %}
     <article class="score">
       <header>
         <div>
@@ -62,26 +72,26 @@
   {% endfor %} -->
 
 
-</div>
+  </div>
 
-<div class="col-sm-3 col-xs-12 centerdiv maindivs">
-  <div class="row">
-    <div class="col-sm-12 col-xs-6 centerdiv">
-      <a href="/score">
-        <div class="score buttondiv">
-            
-        </div>
-      </a>
-    </div>
-    <div class="col-sm-12 col-xs-6 lol centerdiv">
-      <a href="/rules">
-        <div class="rules buttondiv">
-            
-        </div>
-      </a>
+  <div class="col-sm-3 col-xs-12 centerdiv maindivs">
+    <div class="row">
+      <div class="col-sm-12 col-xs-6 centerdiv">
+        <a href="/score">
+          <div class="score buttondiv">
+
+          </div>
+        </a>
+      </div>
+      <div class="col-sm-12 col-xs-6 lol centerdiv">
+        <a href="/rules">
+          <div class="rules buttondiv">
+
+          </div>
+        </a>
+      </div>
     </div>
   </div>
-</div>
 
 </div>
 {% endblock %}

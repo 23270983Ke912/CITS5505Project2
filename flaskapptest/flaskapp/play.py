@@ -45,15 +45,10 @@ def edit():
 def score():
     
     db = get_db()
-    # scores = db.execute(
-    #     'SELECT s.id, maxcombo, score, created, player_id, username'
-    #     ' FROM score s JOIN user u ON s.player_id = u.id'
-    #     ' ORDER BY created DESC'
-    # ).fetchall()
-
-    posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY created DESC'
+    scores = db.execute(
+        'SELECT s.id, maxcombo, score, created, player_id, username'
+        ' FROM score s JOIN user u ON s.player_id = u.id'
+        ' ORDER BY score DESC'
     ).fetchall()
-    return render_template('play/score.html', posts=posts)
+
+    return render_template('play/score.html', scores=scores)
