@@ -55,6 +55,12 @@
 		border-radius: 15px;
 		animation: progres 8s linear;    
 	}
+	.hidden{
+    	visibility: hidden;
+	}
+	.shown{
+		visibility: visible;
+	}
 	@keyframes progres{
 		0%{
 		width: 100%;
@@ -76,7 +82,7 @@
 </head>
 <body>
 	<div class="demo"></div>
-	<div class="progress">
+	<div id="progress" class="progress hidden ">
 		<div id="countdownline"></div>
 	  </div>
 	<div>Timer:<input type="text" id="timer"></div>
