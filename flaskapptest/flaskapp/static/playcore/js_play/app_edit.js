@@ -49,7 +49,8 @@ var init = function(){
     score=0;
 }
 function selectDiv(e) {
-    alert( e.id);
+    $('.tile').removeClass('sel')
+  
     $(e).addClass('sel');
   }
 $(function() {
