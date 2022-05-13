@@ -1,22 +1,14 @@
 var $ = jQuery.noConflict();
 var loaddata_clrs = [['b','b','r','r','b','b'],['y','y','b','b','y','y'],['p','p','y','y','p','p'],['g','g','r','r','g','g'],['r','r','b','b','r','r']];
 
-var def_clrs = ['r','g','b','p','p','p','p','y']; //紅,綠,藍,紫,黃
 var dim_x = 6; //盤面x顆數
 var dim_y = 5; //盤面y顆數
 var tile_w = 60; //每塊寬px
 var tile_h = 80; //每塊高px
 var tile_b = 1; //每塊框線px
 
-var sky_speed = 800; // 天降珠的速度
-var grav_speed = 800; // 自然落珠的速度
-var move_speed = 160; // 移動珠子的速度
-var gone_speed = 300; // 珠子消除的速度
-var myrng = new Math.seedrandom('cits');
-var combo_cnt;
-var score;
-var moveHistory = new Array();
-
+var selectid
+var submitedit = new Array();
 
 
 //隨機挑色
@@ -49,8 +41,9 @@ var init = function(){
     score=0;
 }
 function selectDiv(e) {
-    alert( e.id);
+    $('.tile').removeClass('sel')
     $(e).addClass('sel');
+    selectid=e.id;
   }
 $(function() {
     init();
@@ -58,11 +51,21 @@ $(function() {
     $('.tile_edit').css('height', tile_h-tile_b*2);
     $('.tile_edit').css('border', tile_b+'px solid #333');
 });
-$('.tile').click(function() {
-    alert( this.id);
-  });
 
 $('.tile_edit').click(function() {
-    alert( this.id);
+    $('#'+selectid).removeClass('r g b p y gone');
+    $('#'+selectid).attr('data-clr',this.id)
+    $('#'+selectid).addClass(this.id);
   });
 
+  function submit() {
+    submitedit=new Array();
+    for (  y = 0; y < dim_y; y++) {
+        var xrow= new Array();
+        for ( x = 0; x < dim_x; x++) {
+            xrow.push("'"+$('#'+x+'-'+y).attr('data-clr')+"'");
+        }
+        submitedit.push('['+xrow+']');
+    }
+    alert('['+submitedit+']')
+  };

@@ -1,6 +1,4 @@
 var $ = jQuery.noConflict();
-var loaddata_clrs = [['b','b','r','r','b','b'],['y','y','b','b','y','y'],['p','p','y','y','p','p'],['g','g','r','r','g','g'],['r','r','b','b','r','r']];
-
 var def_clrs = ['r','g','b','p','p','p','p','y']; //紅,綠,藍,紫,黃
 var dim_x = 6; //盤面x顆數
 var dim_y = 5; //盤面y顆數
@@ -24,19 +22,47 @@ var pickRandColor = function(){
     var r = Math.floor(myrng()*def_clrs.length);
     return def_clrs[r];
 }       
-var loadColor = function(i,j){
+var loadColor = function(i,j,loaddata_clrs){
+    console.log(loaddata_clrs[i][j])
     return loaddata_clrs[i][j];
 }
-
+function strtoarrary(clrdata) {
+    clrdata=clrdata.split(',')
+    console.log(clrdata)
+    for(i=0; i<clrdata.length;i++){
+        clrdata[i]=clrdata[i].replace(/[^a-z0-9]/gi, '')
+    }
+    console.log(clrdata)
+    var finalarray=new Array();
+    var row=new Array();
+    for(i=0;i<clrdata.length;i++){
+        if(i%6==0 && i!=0){
+            finalarray.push(row)
+            row=new Array() 
+        }
+        row.push(clrdata[i])
+    }
+    finalarray.push(row)
+    console.log(finalarray)
+    return finalarray
+}
 //初始化盤面
 var init = function(){
+    var params = location.href.split('?')[1].split('&');
+    data = {};
+    for (x in params)
+     {
+    data[params[x].split('=')[0]] = params[x].split('=')[1];
+     }
+     var clrdata=decodeURI(data["loaddata_clrs"])
+     loaddata_clrs=strtoarrary(clrdata)
     //盤面大小
     $('.demo').css('width', dim_x*tile_w).css('height', dim_y*tile_h);
     //產生珠子並指定位置、顏色
     for(i=0; i<dim_y; i++){
         for(j=0; j<dim_x; j++){
             //var clr = pickRandColor();
-            var clr = loadColor(i,j);
+            var clr = loadColor(i,j,loaddata_clrs);
             $('.demo').append('<div id="'+j+'-'+i+'" data-clr="'+clr+'" class="'+clr+' tile" style="left:'+j*tile_w+'px; top:'+i*tile_h+'px;"  ></div>');
         }
     }
@@ -111,7 +137,6 @@ function moveTo(id, pos){
     var x = aryPos[0]*tile_w;
     var y = aryPos[1]*tile_h;
     $('#'+id).animate({'top':y, 'left':x}, {'duration':move_speed});
-    //$('#'+id).offset({top:y, left:x});
     $('#'+id).attr('id',pos);
 }
 
@@ -124,6 +149,7 @@ function repeatMap(repeatX, repeatY, clr, xn, yn) {
     this.yn = yn;
     return this;
 }
+
 
 //消除成為Chain的珠子
 function makeChain() {
