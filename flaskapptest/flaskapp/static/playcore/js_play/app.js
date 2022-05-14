@@ -5,6 +5,7 @@ var dim_y = 5; //盤面y顆數
 var tile_w = 60; //每塊寬px
 var tile_h = 80; //每塊高px
 var tile_b = 1; //每塊框線px
+var try_count = 3;
 
 var sky_speed = 800; // 天降珠的速度
 var grav_speed = 800; // 自然落珠的速度
@@ -48,6 +49,7 @@ function strtoarrary(clrdata) {
 }
 //初始化盤面
 var init = function(){
+    $('#tries').val(try_count);
     var params = location.href.split('?')[1].split('&');
     data = {};
     for (x in params)
@@ -100,7 +102,7 @@ $(function() {
         },
         drag: function(e, ui){
             combo_cnt=0;
-            score=0;
+      
             $('#combo').val(combo_cnt);
             $('#score').val(score);
             $(this).addClass('sel'); //拖曳中珠子的樣式
@@ -299,8 +301,10 @@ function makeChain() {
             var y = aryP[1];
             
         }
+      
         $('#combo').val(++combo_cnt);
         $('#score').val(score);
+     
         /*
         $('.c'+d).each(function(){
             $(document).queue((function (el) {
@@ -313,8 +317,7 @@ function makeChain() {
         });
         */
     }
-    
-    
+   
     //console.log(ems);
     //animateElems(ems);
     
@@ -335,8 +338,16 @@ function makeChain() {
             $('.tile').css('opacity',1);
             console.log(flagMatrix);
             gravity();
+        }else{
+            try_count-=1
+            $('#tries').val(try_count);  
+            if(try_count==0){
+                alert("Finish! Total score:"+score)
+            }
         }
     });
+ 
+    
 }
 
                           
