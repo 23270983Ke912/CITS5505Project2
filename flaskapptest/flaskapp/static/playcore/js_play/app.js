@@ -49,7 +49,7 @@ function strtoarrary(clrdata) {
 }
 //初始化盤面
 var init = function(){
-    $('#tries').val(try_count);
+    $('#tries').text(try_count);
     var params = location.href.split('?')[1].split('&');
     data = {};
     for (x in params)
@@ -103,8 +103,8 @@ $(function() {
         drag: function(e, ui){
             combo_cnt=0;
       
-            $('#combo').val(combo_cnt);
-            $('#score').val(score);
+            $('#combo').text(combo_cnt);
+            $('#score').text(score);
             $(this).addClass('sel'); //拖曳中珠子的樣式
             selLeft = Math.abs(ui.offset.left);
             selTop = ui.offset.top;
@@ -121,7 +121,7 @@ $(function() {
             }
         },
         stop: function(e, ui){
-            $('#timer').val(0);
+            $('#timer').text(0);
             clearInterval(timer);
             $("#progress").removeClass("shown").addClass("hidden");
             $("#countdownline").removeClass('countdown');
@@ -302,8 +302,8 @@ function makeChain() {
             
         }
       
-        $('#combo').val(++combo_cnt);
-        $('#score').val(score);
+        $('#combo').text(++combo_cnt);
+        $('#score').text(score);
      
         /*
         $('.c'+d).each(function(){
@@ -340,7 +340,7 @@ function makeChain() {
             gravity();
         }else{
             try_count-=1
-            $('#tries').val(try_count);  
+            $('#tries').text(try_count);  
             if(try_count==0){
                 alert("Finish! Total score:"+score)
             }
