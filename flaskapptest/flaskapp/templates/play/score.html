@@ -15,17 +15,44 @@
           <tr>
             <th>Scores</th>
             <th>Max Combo</th>
-            <th>Date</th>
             <th>Player</th>
+            <th>Date</th>
           </tr>
-          {% for post in posts %}
+          {% for score in scores %}
           <tr>
-            <td>{{ post['maxcombo'] }}</td>
-            <td>{{ post['body'] }}</td>
-            <td>{{ post['score'].strftime('%Y-%m-%d') }}</td>
-            <td>{{ post['player_id'] }}</td>
+            <td>{{ score['score'] }}</td>
+            <td>{{ score['maxcombo'] }}</td>
+            <td>{{ score['username'] }}</td>
+            <td>{{ score['created'].strftime('%Y-%m-%d') }}</td>
           </tr>
           {% endfor %}
+          {% if g.user['isadmin'] == 1 %}
+          <tr>
+            <form method="post">
+              <td>
+                <label for="score">Score</label>
+                <input name="score" id="score" placeholder="Enter a score" required>
+              </td>
+              <td>
+                <label for="username">Maxcombo</label>
+                <input name="maxcombo" id="maxcombo" placeholder="Enter a maxcombo" required>
+              </td>
+              <td>
+                <label for="cars">Player:</label>
+                <select name="playerid" id="playerid">
+                  {% for user in users %}
+                  <option value = {{ user['id'] }} >{{ user['username'] }}</option>
+                  {% endfor %}
+
+
+                </select>
+              </td>
+              <td>
+                <input type="submit" value="Add">
+              </td>
+            </form>
+          </tr>
+          {% endif %}
         </table>
       </div>
     </div>

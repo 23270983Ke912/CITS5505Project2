@@ -11,9 +11,19 @@
 	<div id="progress" class="progress hidden ">
 		<div id="countdownline"></div>
 	  </div>
-	<div>Number of tries:<input type="text" id="tries"></div>
-	<div>Combo:<input type="text" id="combo"></div>
-	<div>Score:<input type="text" id="score"></div>
+
+	<div class="result">
+        <h2 class="resultdata" id="combo">0</h2>
+        <p>Combo</p>
+    </div>
+    <div class="result">
+        <h2 class="resultdata" id="tries">0</h2>
+        <p>Timer</p>
+    </div>
+	<div class="result last">
+        <h2 class="resultdata" id="score">0</h2>
+        <p>Score</p>
+    </div>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
     <script src="js_play/jquery.ui.touch-punch.min.js"></script>
