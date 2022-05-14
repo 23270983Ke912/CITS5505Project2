@@ -45,16 +45,11 @@ def countdown():
 def play():
 
     iframe = url_for('static', filename='playcore/puzzle.html')
-<<<<<<< HEAD
-    loaddata_clrs = [['b', 'b', 'r', 'r', 'b', 'b'], ['y', 'y', 'b', 'b', 'y', 'y'], [
-        'p', 'p', 'y', 'y', 'p', 'p'], ['g', 'g', 'r', 'r', 'g', 'g'], ['r', 'r', 'b', 'b', 'r', 'r']]
-    def_clrs = ['r', 'g', 'b', 'p', 'p', 'p', 'p', 'y']
-
-    return render_template('play/play.html', iframe=iframe, loaddata_clrs=loaddata_clrs, def_clrs=def_clrs)
-=======
     loaddata_clrs = [['g','g','r','r','b','b'],['y','y','b','b','y','y'],['p','p','y','y','p','p'],['g','g','r','r','g','g'],['r','r','b','b','r','r']]
     def_clrs = ['r','g','b','p','p','p','p','y']
->>>>>>> cada288e40546643691e614224395e13be57e1c4
+
+    return render_template('play/play.html', iframe=iframe, loaddata_clrs=loaddata_clrs, def_clrs=def_clrs)
+
 
 
 @bp.route('/edit')
