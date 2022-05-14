@@ -1,27 +1,48 @@
 html {
     font-family: sans-serif;
-    background: #a34f16;
-    padding: 1rem; 
+    background: #000000;
+    padding: 1rem;     
+    background-image: url("pics/background.jpg");
+
 }
 
 body {
     min-height: 100vh;
     margin: 0 auto;
-    background-image: url("pics/background.jpg");
+    background-color: #00000000;
     
 }
 
-.gamediv{
-    margin-top: 10vh;
+.centre{
     display: flex;            
     display: -webkit-flex;            
     justify-content: center;            
     align-items: center;   
 }
 
-.centerdiv{
+.gamediv{
+    height: 95vh;
     display: flex;            
+    display: -webkit-flex;            
     justify-content: center;            
+    align-items: center;   
+    transition: 0.3s;
+    box-shadow: 0px 10px 10px rgb(0, 0, 0);
+}
+.gamediv:hover {
+    box-shadow: 0px 0px 10px rgb(39, 39, 39);
+  }
+
+.centerdiv{
+    height: 95vh;
+    display: flex;            
+    justify-content: center;     
+    background: linear-gradient(rgba(0, 0, 0, 0.0), rgba(72, 2, 2, 0.5));
+}
+
+.btndiv{
+    display: flex;            
+    justify-content: center;    
 }
 
 .buttondiv{
@@ -36,7 +57,6 @@ body {
 }
 .buttondiv:hover {
     filter: drop-shadow(0px 0px 10px #ffffff);
-    
   }
 
 @media screen and (max-width: 768px) {
@@ -46,6 +66,9 @@ body {
 	}
     .gamediv{
         margin-top: 0vh;
+    }
+    .centerdiv{
+        height: auto;
     }
 }
 
@@ -65,16 +88,10 @@ body {
 
 iframe {
     margin-top: 10vh;
-    height: 500px;
-    width: 365px;
-}
-
-
-.editiframe {
-    margin: auto;
     height: 600px;
     width: 365px;
 }
+
 table {
     border-collapse: collapse;
     width: 100%;
@@ -85,12 +102,12 @@ table {
     padding: 8px;
   }
   
-  tr:nth-child(even){background-color: #f2f2f2}
-  tr:nth-child(odd){background-color: #f8f8f8}
+  tr:nth-child(even){background-color: #f2f2f226}
+  tr:nth-child(odd){background-color: #f8f8f846}
 
   
   th {
-    background-color: #04AA6D;
+    background-color: #aa040442;
     color: white;
   }
 
@@ -102,7 +119,14 @@ table {
 
 }
 
+.rulestext{
+    padding-left: 15px;
+    padding-right: 15px;
+
+}
+
 h1 {
+    font-family: cursive;
     text-align: center;
     font-family: serif;
     color: #49260d;
@@ -119,6 +143,7 @@ hr {
 }
 
 nav {
+    width: 100%;
     background: lightgray;
     display: flex;
     align-items: center;
@@ -169,30 +194,6 @@ header .action {
     padding: 1em;
     background: #cae6f6;
     border: 1px solid #377ba8;
-}
-
-.post>header {
-    display: flex;
-    align-items: flex-end;
-    font-size: 0.85em;
-}
-
-.post>header>div:first-of-type {
-    flex: auto;
-}
-
-.post>header h1 {
-    font-size: 1.5em;
-    margin-bottom: 0;
-}
-
-.post .about {
-    color: slategray;
-    font-style: italic;
-}
-
-.post .body {
-    white-space: pre-line;
 }
 
 .content:last-child {

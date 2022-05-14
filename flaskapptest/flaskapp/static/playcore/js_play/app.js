@@ -86,10 +86,10 @@ $(function() {
             moveHistory= new Array();
             moveHistory.push(ui.offset.left/tile_w+'-'+ui.offset.top/tile_h)
             var count = 8;
-            $('#timer').val(count);
+            $('#timer').html(count);
             timer =setInterval(function() {
                 count--;
-                $('#timer').val(count);
+                $('#timer').html(count);
                 // update timer here
 
                 if (count === 0) {
@@ -101,8 +101,8 @@ $(function() {
         drag: function(e, ui){
             combo_cnt=0;
             score=0;
-            $('#combo').val(combo_cnt);
-            $('#score').val(score);
+            $('#combo').html(combo_cnt);
+            $('#score').html(score);
             $(this).addClass('sel'); //拖曳中珠子的樣式
             selLeft = Math.abs(ui.offset.left);
             selTop = ui.offset.top;
@@ -299,8 +299,8 @@ function makeChain() {
             var y = aryP[1];
             
         }
-        $('#combo').val(++combo_cnt);
-        $('#score').val(score);
+        $('#combo').html(++combo_cnt);
+        $('#score').html(score);
         /*
         $('.c'+d).each(function(){
             $(document).queue((function (el) {
@@ -457,3 +457,4 @@ function gravity() {
     });
     setTimeout(makeChain,sky_speed+100);
 }
+

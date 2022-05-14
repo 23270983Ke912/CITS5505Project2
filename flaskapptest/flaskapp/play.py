@@ -28,33 +28,27 @@ def get_user(id):
 
     return user
 
-
-# render the content a url differnt from index. This will be streamed into the iframe
-@bp.route('/countdown')
-def countdown():
-    def timer(t):
-        for i in range(t):
-            time.sleep(5)  # put 60 here if you want to have seconds
-            yield str(i)
-    # at the moment the time value is hardcoded in the function just for simplicity
-    return Response(timer(10), mimetype='text/html')
-
-
 @bp.route('/play')
 @login_required
 def play():
 
     iframe = url_for('static', filename='playcore/puzzle.html')
-<<<<<<< HEAD
     loaddata_clrs = [['b', 'b', 'r', 'r', 'b', 'b'], ['y', 'y', 'b', 'b', 'y', 'y'], [
         'p', 'p', 'y', 'y', 'p', 'p'], ['g', 'g', 'r', 'r', 'g', 'g'], ['r', 'r', 'b', 'b', 'r', 'r']]
     def_clrs = ['r', 'g', 'b', 'p', 'p', 'p', 'p', 'y']
 
     return render_template('play/play.html', iframe=iframe, loaddata_clrs=loaddata_clrs, def_clrs=def_clrs)
-=======
-    loaddata_clrs = [['g','g','r','r','b','b'],['y','y','b','b','y','y'],['p','p','y','y','p','p'],['g','g','r','r','g','g'],['r','r','b','b','r','r']]
-    def_clrs = ['r','g','b','p','p','p','p','y']
->>>>>>> cada288e40546643691e614224395e13be57e1c4
+
+@bp.route('/rules')
+def rules():
+
+    return render_template('play/rules.html')
+
+@bp.route('/restart')
+def restart():
+
+    return redirect(url_for("play.play"))
+
 
 
 @bp.route('/edit')
@@ -75,12 +69,46 @@ def score():
 
     db = get_db()
     scores = db.execute(
-        'SELECT s.id, maxcombo, score, created, player_id'
+        'SELECT s.id, maxcombo, score, created, player_id, username'
         ' FROM score s JOIN user u ON s.player_id = u.id'
         ' ORDER BY score DESC'
     ).fetchall()
 
-    return render_template('play/score.html', scores=scores)
+    users = db.execute(
+        'SELECT id, username, isadmin'
+        ' FROM user '
+        ' ORDER BY id DESC'
+    ).fetchall()
+
+    if request.method == 'POST':
+        score = request.form['score']
+        maxcombo = request.form['maxcombo']
+        playerid = request.form['playerid']
+        error = None
+
+        if not score:
+            error = 'Score is required.'
+        elif not maxcombo:
+            error = 'Maxcombo is required.'
+        elif not playerid:
+            error = 'Player is required.'
+
+        if error is None:
+            try:
+                db.execute(
+                    "INSERT INTO score (player_id, maxcombo, score) VALUES (?, ?, ?)",
+                    (playerid, maxcombo, score)
+                )
+                db.commit()
+            except db.IntegrityError:
+                error = f"User {playerid} is not exist."
+            else:
+                return redirect(url_for("play.score"))
+
+        flash(error)
+
+
+    return render_template('play/score.html', scores=scores, users=users)
 
 
 @bp.route('/manage', methods=('GET', 'POST'))
@@ -136,7 +164,7 @@ def delete(id):
     db = get_db()
     db.execute('DELETE FROM user WHERE id = ?', (id,))
     db.commit()
-    return redirect(url_for('play'))
+    return redirect(url_for('play.manage'))
 
 
 @bp.route('/<int:id>/changeaccounttype', methods=('POST',))
@@ -154,5 +182,5 @@ def changeaccounttype(id):
         (adminvalue, id)
     )    
     db.commit()
-    return redirect(url_for('play'))
+    return redirect(url_for('play.manage'))
 
