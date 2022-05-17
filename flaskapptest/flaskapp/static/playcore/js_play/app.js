@@ -367,7 +367,7 @@ function makeChain() {
                     data: {json: jsondata},
                     contentType: "application/json",
                     success: function(data){
-                        alert(data);
+                        alert(JSON.stringify(data));
                     },
                     error: function(errMsg) {
                         console.log(errMsg)
