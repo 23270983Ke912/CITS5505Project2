@@ -15,6 +15,8 @@ var myrng = new Math.seedrandom('cits');
 var combo_cnt;
 var score;
 var moveHistory = new Array();
+var userId;
+var max_combo=null ;
 
 
 
@@ -29,11 +31,10 @@ var loadColor = function(i,j,loaddata_clrs){
 }
 function strtoarrary(clrdata) {
     clrdata=clrdata.split(',')
-    console.log(clrdata)
     for(i=0; i<clrdata.length;i++){
         clrdata[i]=clrdata[i].replace(/[^a-z0-9]/gi, '')
     }
-    console.log(clrdata)
+ 
     var finalarray=new Array();
     var row=new Array();
     for(i=0;i<clrdata.length;i++){
@@ -44,7 +45,7 @@ function strtoarrary(clrdata) {
         row.push(clrdata[i])
     }
     finalarray.push(row)
-    console.log(finalarray)
+
     return finalarray
 }
 //初始化盤面
@@ -56,8 +57,12 @@ var init = function(){
      {
     data[params[x].split('=')[0]] = params[x].split('=')[1];
      }
+     console.log(data)
      var clrdata=decodeURI(data["loaddata_clrs"])
      loaddata_clrs=strtoarrary(clrdata)
+     userId=data["userId"]
+
+     console.log(userId)
     //盤面大小
     $('.demo').css('width', dim_x*tile_w).css('height', dim_y*tile_h);
     //產生珠子並指定位置、顏色
@@ -340,9 +345,35 @@ function makeChain() {
             gravity();
         }else{
             try_count-=1
+            if(max_combo== null ){
+                max_combo=combo_cnt;
+            }else{
+                if(combo_cnt>max_combo){
+                    max_combo=combo_cnt;
+                }
+            }
             $('#tries').text(try_count);  
             if(try_count==0){
-                alert("Finish! Total score:"+score)
+               
+                var jsondata = JSON.stringify({
+                    playerid:userId,
+                    maxcombo:max_combo,
+                    score:score
+                });  
+                console.log(jsondata)
+                $.ajax({
+                    url: "http://127.0.0.1:5000/scoreAdd",
+                    method: "POST",        
+                    data: {json: jsondata},
+                    contentType: "application/json",
+                    success: function(data){
+                        alert(data);
+                    },
+                    error: function(errMsg) {
+                        console.log(errMsg)
+                        alert(JSON.stringify(errMsg));
+                    }
+                });
             }
         }
     });
