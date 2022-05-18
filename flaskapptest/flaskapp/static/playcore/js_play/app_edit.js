@@ -19,10 +19,22 @@ var pickRandColor = function(){
 var loadColor = function(i,j){
     return loaddata_clrs[i][j];
 }
+function To2Digits(num) {
+    return num.toString().padStart(2, '0');
+  }
+  
+  function formatDate(date = new Date()) {
+    return [
+      date.getFullYear(),
+      To2Digits(date.getMonth() + 1),
+      To2Digits(date.getDate()),
+    ].join('-');
+  }
 
 //初始化盤面
 var init = function(){
-
+    document.getElementById('datepicker').value= formatDate()
+    
     var params = location.href.split('?')[1];
     userId = params.split('=')[1]
 
@@ -89,12 +101,13 @@ $('.tile_edit').click(function() {
         contentType: "application/json",
         success: function(data){
             console.log("Success");
-            console.log(data)
+            alert("Puzzle created");
         },
         error: function(errMsg) {
-            console.log(errMsg)
-            alert(JSON.stringify(errMsg));
+            if(errMsg.status==405){
+                alert("Puzzle for this day is already created");
+            }
+            console.log(errMsg.status)
         }
     });
-    alert('['+submitedit+']')
   };
