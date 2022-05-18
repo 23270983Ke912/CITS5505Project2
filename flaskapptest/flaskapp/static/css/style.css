@@ -21,6 +21,7 @@ body {
 }
 
 .gamediv{
+    overflow: auto;
     height: 95vh;
     display: flex;            
     display: -webkit-flex;            
