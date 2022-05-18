@@ -1,15 +1,27 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Log In{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="username">Username</label>
-    <input name="username" id="username" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="Log In">
-  </form>
+<div class="centergamediv">
+  <div class="row">
+
+    <div class="col-xs-12">
+      <h1>{% block title %}Log In{% endblock %}</h1>
+    </div>
+
+    <div class="col-xs-12">
+      <form method="post">
+        <label for="username">Username</label>
+        <input name="username" id="username" required>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+        <input class="inputbtn" type="submit" value="Log In">
+      </form>
+    </div>
+
+  </div>
+</div>
+
 {% endblock %}
