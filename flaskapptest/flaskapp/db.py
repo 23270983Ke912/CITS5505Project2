@@ -42,7 +42,7 @@ def init_db_command():
 
 @click.command('init-db-test')
 @with_appcontext
-def init_db_command():
+def init_db_command_test():
     """Clear the existing data and create new tables."""
     init_db()
 
