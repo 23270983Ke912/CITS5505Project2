@@ -376,13 +376,8 @@ function makeChain() {
                     success: function(data){
                         console.log("Success");
                         console.log(data)
-                        top.location = data
-                        if (data.redirect) {
-                            console.log("re")
-                            // data.redirect contains the string URL to redirect to
-                            window.location.href = data.redirect;
-                        }
-                        console.log("Success");
+                        //top.location = data
+                    
                     },
                     error: function(errMsg) {
                         console.log(errMsg)

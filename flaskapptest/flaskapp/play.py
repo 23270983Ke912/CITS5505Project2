@@ -144,16 +144,16 @@ def scoreAdd():
             except Exception as e:
                 print(e)
             else:
-                return url_for('play.score')
+                return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
         flash(error)
 
 
-    return url_for('play.score')
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 @bp.route('/editAdd', methods=('GET', 'POST'))
 @login_required
-def scoreAdd():
+def editAdd():
 
     db = get_db()
  
@@ -183,12 +183,12 @@ def scoreAdd():
             except Exception as e:
                 print(e)
             else:
-                return url_for('play.score')
+                return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
         flash(error)
 
 
-    return url_for('play.score')
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 
 @bp.route('/manage', methods=('GET', 'POST'))
