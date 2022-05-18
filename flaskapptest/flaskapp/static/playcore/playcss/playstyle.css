@@ -7,6 +7,7 @@ body {
     position: absolute;
     margin: 0 0px 0px 0;
     cursor: grab;
+    
     /*border-radius:20px;*/
 
 }
@@ -29,6 +30,9 @@ body {
 .tile_edit {
     float: left;
     margin: 0 0px 0px 0;
+}
+.endblur {
+    filter: brightness(65%);
 }
 
 .tile:hover {

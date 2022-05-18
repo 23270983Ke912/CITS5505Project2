@@ -144,7 +144,7 @@ def scoreAdd():
             except Exception as e:
                 print(e)
             else:
-                return  json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+                return  redirect(url_for('blog.index'))
 
         flash(error)
 

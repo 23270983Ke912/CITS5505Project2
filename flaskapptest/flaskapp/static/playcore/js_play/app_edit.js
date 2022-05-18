@@ -4,7 +4,7 @@ var loaddata_clrs = [['b','b','r','r','b','b'],['y','y','b','b','y','y'],['p','p
 var dim_x = 6; //盤面x顆數
 var dim_y = 5; //盤面y顆數
 var tile_w = 60; //每塊寬px
-var tile_h = 60; //每塊高px
+var tile_h = 80; //每塊高px
 var tile_b = 1; //每塊框線px
 
 var selectid
@@ -22,6 +22,7 @@ var loadColor = function(i,j){
 
 //初始化盤面
 var init = function(){
+    $(".tile").removeClass("endblur")
     //盤面大小
     $('.demo').css('width', dim_x*tile_w).css('height', dim_y*tile_h);
     //產生珠子並指定位置、顏色
