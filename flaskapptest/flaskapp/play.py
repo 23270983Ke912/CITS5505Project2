@@ -126,6 +126,9 @@ def scoreAdd():
         playerid = data.get('playerid')
         error = None
 
+        print("score" + score)
+        print("maxcombo" + maxcombo)
+        print("playerid" + playerid)
         if not score:
             error = 'Score is required.'
         elif not maxcombo:
@@ -144,7 +147,9 @@ def scoreAdd():
             except Exception as e:
                 print(e)
             else:
+
                 return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
 
         flash(error)
 
