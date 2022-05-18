@@ -349,7 +349,6 @@ function makeChain() {
             console.log(flagMatrix);
             gravity();
         } else {
-            try_count -= 1
             if (max_combo == null) {
                 max_combo = combo_cnt;
             } else {
