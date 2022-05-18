@@ -70,7 +70,7 @@ def score():
 
     db = get_db()
     scores = db.execute(
-        'SELECT s.id, maxcombo, score, created, player_id, username'
+        'SELECT s.id, maxcombo, score, created, player_id, username, shareable'
         ' FROM score s JOIN user u ON s.player_id = u.id'
         ' ORDER BY score DESC'
     ).fetchall()
@@ -96,8 +96,8 @@ def score():
         if error is None:
             try:
                 db.execute(
-                    "INSERT INTO score (player_id, maxcombo, score) VALUES (?, ?, ?)",
-                    (playerid, maxcombo, score)
+                    "INSERT INTO score (player_id, maxcombo, score, shareable) VALUES (?, ?, ?, ?)",
+                    (playerid, maxcombo, score, 0)
                 )
                 db.commit()
             except db.IntegrityError:
@@ -124,34 +124,30 @@ def scoreAdd():
         score = data.get('score')
         maxcombo = data.get('maxcombo')
         playerid = data.get('playerid')
+        shareable = data.get('shareable')
         error = None
 
-        print("score" + score)
-        print("maxcombo" + maxcombo)
-        print("playerid" + playerid)
         if not score:
             error = 'Score is required.'
         elif not maxcombo:
             error = 'Maxcombo is required.'
         elif not playerid:
             error = 'Player is required.'
+        elif not shareable:
+            error = 'Shareable is required.'
 
         if error is None:
             try:
-                print("INSERT INTO score (player_id, maxcombo, score) VALUES (?, ?, ?)",(playerid, maxcombo, score))
+                print("INSERT INTO score (player_id, maxcombo, score, shareable) VALUES (?, ?, ?, ?)",(playerid, maxcombo, score, shareable))
                 db.execute(
-                    "INSERT INTO score (player_id, maxcombo, score) VALUES (?, ?, ?)",
-                    (playerid, maxcombo, score)
+                    "INSERT INTO score (player_id, maxcombo, score, shareable) VALUES (?, ?, ?, ?)",
+                    (playerid, maxcombo, score, shareable)
                 )
                 db.commit()
             except Exception as e:
                 print(e)
             else:
-<<<<<<< HEAD
                 return  redirect(url_for('play.score'))
-=======
-                return url_for('play.score')
->>>>>>> cb0242d9d426af41f76ae2f37e7745d0cac30337
 
         flash(error)
 

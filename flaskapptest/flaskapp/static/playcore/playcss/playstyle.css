@@ -75,11 +75,11 @@ body {
 }
 
 .demo:active {
-    box-shadow: 0 0 4px 6px rgba(204, 0, 0, 0.579);
-    animation: glow 0.8s ease-in-out infinite alternate;
+    box-shadow: 0 0 4px 6px rgba(123, 44, 44, 0);
+    animation: flash 0.8s ease-in-out infinite alternate;
 }
 
-@-webkit-keyframes glow {
+@-webkit-keyframes flash {
     from {
         box-shadow: 0 0 4px 6px rgba(204, 0, 0, 0.864)
     }
@@ -125,9 +125,35 @@ body {
     animation: progres 8s linear;
 }
 
+#outputdiv{
+    z-index: 1;
+}
+
 #output{
     position: absolute;
+}
+
+#btndiv{
+    width: 100%;
+    position: absolute;
     z-index: 1;
+    top: 400px;
+    margin-left: 6px;
+    margin-top: 5px;
+}
+
+#btndiv button{
+    background-color: #ffc8c6;
+    border: none;
+    color: #5b2a32;
+    height: 54px;
+    width: 32%;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+#btndiv button:hover{
+    background-color: #fda796;
 }
 
 .hidden {

@@ -18,6 +18,7 @@
             <th>Player</th>
             <th>Date</th>
           </tr>
+          {% if g.user['isadmin'] == 1 %}
           {% for score in scores %}
           <tr>
             <td>{{ score['score'] }}</td>
@@ -26,7 +27,7 @@
             <td>{{ score['created'].strftime('%Y-%m-%d') }}</td>
           </tr>
           {% endfor %}
-          {% if g.user['isadmin'] == 1 %}
+
           <tr>
             <form method="post">
               <td>
@@ -52,6 +53,22 @@
               </td>
             </form>
           </tr>
+          {% else %}
+          <p>Only displaying shared scores from players</p>
+          {% for score in scores %}
+
+          {% if score['shareable'] == "1" %}
+
+          <tr>
+            <td>{{ score['score'] }}</td>
+            <td>{{ score['maxcombo'] }}</td>
+            <td>{{ score['username'] }}</td>
+            <td>{{ score['created'].strftime('%Y-%m-%d') }}</td>
+          </tr>
+          {% endif %}
+
+          {% endfor %}
+
           {% endif %}
         </table>
       </div>

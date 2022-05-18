@@ -15,6 +15,7 @@ CREATE TABLE score (
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   maxcombo INTEGER NOT NULL,
   score INTEGER NOT NULL,
+  shareable TEXT NOT NULL,
   FOREIGN KEY (player_id) REFERENCES user (id)
 );
 
