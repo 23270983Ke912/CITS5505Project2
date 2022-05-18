@@ -12,11 +12,12 @@ var grav_speed = 800; // 自然落珠的速度
 var move_speed = 160; // 移動珠子的速度
 var gone_speed = 300; // 珠子消除的速度
 var myrng = new Math.seedrandom('cits');
-var combo_cnt;
-var score;
+var combo_cnt = 0;
+var score = 0;
 var moveHistory = new Array();
 var userId;
-var max_combo = null;
+var max_combo = 0;
+var shareable = "0";
 
 
 
@@ -109,8 +110,9 @@ $(function () {
                 }
             }, 1000);
         },
-        drag: function(e, ui){
-            combo_cnt=0;
+        drag: function (e, ui) {
+            combo_cnt = 0;
+
             $('#combo').text(combo_cnt);
             $('#score').text(score);
             $(this).addClass('sel'); //拖曳中珠子的樣式
@@ -366,19 +368,74 @@ function makeChain() {
                             var share_button = document.createElement("BUTTON");
                             var t = document.createTextNode("Share Score");
                             share_button.appendChild(t);
+                            share_button.addEventListener("click", function openpage() {
+                                document.getElementById('outputdiv').appendChild(output);
+                                document.getElementById('output').appendChild(canvas);
+                                shareable = "1"
+                                $(".tile").addClass("endblur")
+                                $(".tile").draggable("disable")
+                                if (score != 0 && max_combo != 0) {
+                                    var jsondata = JSON.stringify({
+                                        playerid: userId,
+                                        maxcombo: max_combo,
+                                        score: score,
+                                        shareable: shareable
+                                    });
+                                    console.log(jsondata)
+
+
+                                    $.ajax({
+                                        url: "/scoreAdd",
+                                        method: "POST",
+                                        data: { json: jsondata },
+                                        contentType: "application/json",
+                                        success: function (data) {
+                                            console.log("Success");
+                                            console.log(data)
+                                            top.location = data
+                                            if (data.redirect) {
+                                                console.log("re")
+                                                // data.redirect contains the string URL to redirect to
+                                                window.location.href = data.redirect;
+                                            }
+                                            console.log("Success");
+                                        },
+                                        error: function (errMsg) {
+                                            console.log(errMsg)
+                                            alert(JSON.stringify(errMsg));
+                                        }
+                                    });
+                                }
+                                else{
+                                    alert("Unable to share 0 to the score board...")
+                                }
+                            });
 
                             var viewscore_button = document.createElement("BUTTON");
                             t = document.createTextNode("View Score");
                             viewscore_button.appendChild(t);
+                            viewscore_button.addEventListener("click", function openpage() {
+                                top.location = "/score"
+                            });
 
                             var restart_button = document.createElement("BUTTON");
                             t = document.createTextNode("Restart");
                             restart_button.appendChild(t);
+                            restart_button.addEventListener("click", function openpage() {
+                                top.location = "/play"
+                            });
 
-                            document.getElementById('output').appendChild(canvas);
-                            document.getElementById('output').appendChild(share_button);
-                            document.getElementById('output').appendChild(viewscore_button);
-                            document.getElementById('output').appendChild(restart_button);
+                            var output = document.createElement("div")
+                            output.id = "output"
+
+                            var btndiv = document.createElement("div")
+                            btndiv.id = "btndiv"
+                            document.getElementById('outputdiv').appendChild(btndiv);
+                            document.getElementById('btndiv').appendChild(share_button);
+                            document.getElementById('btndiv').appendChild(viewscore_button);
+                            document.getElementById('btndiv').appendChild(restart_button);
+
+
 
                         })
                 }
