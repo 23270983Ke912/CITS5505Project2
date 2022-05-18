@@ -50,6 +50,7 @@ function strtoarrary(clrdata) {
 }
 //初始化盤面
 var init = function(){
+    
     $('#tries').text(try_count);
     var params = location.href.split('?')[1].split('&');
     data = {};
@@ -85,6 +86,7 @@ var init = function(){
 $(function() {
     init();
     var timer ;
+   
     $(".tile").draggable({
         grid: [parseInt(tile_w), parseInt(tile_h)], //拖曳時移動單位(以一個珠子的尺寸為移動單位)
         start:function(e, ui){
@@ -361,13 +363,15 @@ function makeChain() {
                     score:score
                 });  
                 console.log(jsondata)
+                $(".tile").addClass("endblur")
+                $(".tile").draggable("disable")
                 $.ajax({
                     url: "http://127.0.0.1:5000/scoreAdd",
                     method: "POST",        
                     data: {json: jsondata},
                     contentType: "application/json",
                     success: function(data){
-                        alert(JSON.stringify(data));
+                        console.log("Success");
                     },
                     error: function(errMsg) {
                         console.log(errMsg)
