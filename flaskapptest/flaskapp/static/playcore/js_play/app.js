@@ -49,7 +49,11 @@ function strtoarrary(clrdata) {
     return finalarray
 }
 //初始化盤面
+<<<<<<< HEAD
 var init = function () {
+=======
+var init = function(){
+>>>>>>> cb0242d9d426af41f76ae2f37e7745d0cac30337
 
     $('#tries').text(try_count);
     var params = location.href.split('?')[1].split('&');
@@ -88,7 +92,14 @@ $(function () {
 
     $(".tile").draggable({
         grid: [parseInt(tile_w), parseInt(tile_h)], //拖曳時移動單位(以一個珠子的尺寸為移動單位)
+<<<<<<< HEAD
         start: function (e, ui) {
+=======
+        start:function(e, ui){
+
+            try_count-=1
+            $('#tries').text(try_count);  
+>>>>>>> cb0242d9d426af41f76ae2f37e7745d0cac30337
             $("#progress").removeClass("hidden").addClass("shown");
             $("#countdownline").addClass('countdown');
             moveHistory = new Array();
@@ -106,9 +117,14 @@ $(function () {
                 }
             }, 1000);
         },
+<<<<<<< HEAD
         drag: function (e, ui) {
             combo_cnt = 0;
 
+=======
+        drag: function(e, ui){
+            combo_cnt=0;
+>>>>>>> cb0242d9d426af41f76ae2f37e7745d0cac30337
             $('#combo').text(combo_cnt);
             $('#score').text(score);
             $(this).addClass('sel'); //拖曳中珠子的樣式
@@ -344,6 +360,7 @@ function makeChain() {
             $('.tile').css('opacity', 1);
             console.log(flagMatrix);
             gravity();
+<<<<<<< HEAD
         } else {
             try_count -= 1
             if (max_combo == null) {
@@ -382,6 +399,20 @@ function makeChain() {
                 }
                 takeshot()
 
+=======
+        }else{
+           
+            if(max_combo== null ){
+                max_combo=combo_cnt;
+            }else{
+                if(combo_cnt>max_combo){
+                    max_combo=combo_cnt;
+                }
+            }
+          
+            if(try_count==0){
+               
+>>>>>>> cb0242d9d426af41f76ae2f37e7745d0cac30337
                 var jsondata = JSON.stringify({
                     playerid: userId,
                     maxcombo: max_combo,
@@ -390,12 +421,27 @@ function makeChain() {
                 console.log(jsondata)
                 $(".tile").addClass("endblur")
                 $(".tile").draggable("disable")
+
                 $.ajax({
+<<<<<<< HEAD
                     url: "http://127.0.0.1:5000/scoreAdd",
                     method: "POST",
                     data: { json: jsondata },
+=======
+                    url: "/scoreAdd",
+                    method: "POST",        
+                    data: {json: jsondata},
+>>>>>>> cb0242d9d426af41f76ae2f37e7745d0cac30337
                     contentType: "application/json",
                     success: function (data) {
+                        console.log("Success");
+                        console.log(data)
+                        top.location = data
+                        if (data.redirect) {
+                            console.log("re")
+                            // data.redirect contains the string URL to redirect to
+                            window.location.href = data.redirect;
+                        }
                         console.log("Success");
                     },
                     error: function (errMsg) {

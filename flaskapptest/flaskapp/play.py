@@ -147,12 +147,16 @@ def scoreAdd():
             except Exception as e:
                 print(e)
             else:
+<<<<<<< HEAD
                 return  redirect(url_for('play.score'))
+=======
+                return url_for('play.score')
+>>>>>>> cb0242d9d426af41f76ae2f37e7745d0cac30337
 
         flash(error)
 
 
-    return 
+    return url_for('play.score')
 
 
 @bp.route('/manage', methods=('GET', 'POST'))
