@@ -125,6 +125,11 @@ body {
     animation: progres 8s linear;
 }
 
+#output{
+    position: absolute;
+    z-index: 1;
+}
+
 .hidden {
     visibility: hidden;
 }
