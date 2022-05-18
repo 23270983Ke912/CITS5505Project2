@@ -5,6 +5,7 @@ var dim_y = 5; //盤面y顆數
 var tile_w = 60; //每塊寬px
 var tile_h = 80; //每塊高px
 var tile_b = 1; //每塊框線px
+var try_count = 3;
 
 var sky_speed = 800; // 天降珠的速度
 var grav_speed = 800; // 自然落珠的速度
@@ -14,6 +15,8 @@ var myrng = new Math.seedrandom('cits');
 var combo_cnt;
 var score;
 var moveHistory = new Array();
+var userId;
+var max_combo=null ;
 
 
 
@@ -28,11 +31,10 @@ var loadColor = function(i,j,loaddata_clrs){
 }
 function strtoarrary(clrdata) {
     clrdata=clrdata.split(',')
-    console.log(clrdata)
     for(i=0; i<clrdata.length;i++){
         clrdata[i]=clrdata[i].replace(/[^a-z0-9]/gi, '')
     }
-    console.log(clrdata)
+ 
     var finalarray=new Array();
     var row=new Array();
     for(i=0;i<clrdata.length;i++){
@@ -43,19 +45,24 @@ function strtoarrary(clrdata) {
         row.push(clrdata[i])
     }
     finalarray.push(row)
-    console.log(finalarray)
+
     return finalarray
 }
 //初始化盤面
 var init = function(){
+    $('#tries').text(try_count);
     var params = location.href.split('?')[1].split('&');
     data = {};
     for (x in params)
      {
     data[params[x].split('=')[0]] = params[x].split('=')[1];
      }
+     console.log(data)
      var clrdata=decodeURI(data["loaddata_clrs"])
      loaddata_clrs=strtoarrary(clrdata)
+     userId=data["userId"]
+
+     console.log(userId)
     //盤面大小
     $('.demo').css('width', dim_x*tile_w).css('height', dim_y*tile_h);
     //產生珠子並指定位置、顏色
@@ -100,9 +107,9 @@ $(function() {
         },
         drag: function(e, ui){
             combo_cnt=0;
-            score=0;
-            $('#combo').html(combo_cnt);
-            $('#score').html(score);
+      
+            $('#combo').text(combo_cnt);
+            $('#score').text(score);
             $(this).addClass('sel'); //拖曳中珠子的樣式
             selLeft = Math.abs(ui.offset.left);
             selTop = ui.offset.top;
@@ -119,7 +126,7 @@ $(function() {
             }
         },
         stop: function(e, ui){
-            $('#timer').val(0);
+            $('#timer').text(0);
             clearInterval(timer);
             $("#progress").removeClass("shown").addClass("hidden");
             $("#countdownline").removeClass('countdown');
@@ -299,8 +306,10 @@ function makeChain() {
             var y = aryP[1];
             
         }
-        $('#combo').html(++combo_cnt);
-        $('#score').html(score);
+      
+        $('#combo').text(++combo_cnt);
+        $('#score').text(score);
+     
         /*
         $('.c'+d).each(function(){
             $(document).queue((function (el) {
@@ -313,8 +322,7 @@ function makeChain() {
         });
         */
     }
-    
-    
+   
     //console.log(ems);
     //animateElems(ems);
     
@@ -335,8 +343,42 @@ function makeChain() {
             $('.tile').css('opacity',1);
             console.log(flagMatrix);
             gravity();
+        }else{
+            try_count-=1
+            if(max_combo== null ){
+                max_combo=combo_cnt;
+            }else{
+                if(combo_cnt>max_combo){
+                    max_combo=combo_cnt;
+                }
+            }
+            $('#tries').text(try_count);  
+            if(try_count==0){
+               
+                var jsondata = JSON.stringify({
+                    playerid:userId,
+                    maxcombo:max_combo,
+                    score:score
+                });  
+                console.log(jsondata)
+                $.ajax({
+                    url: "http://127.0.0.1:5000/scoreAdd",
+                    method: "POST",        
+                    data: {json: jsondata},
+                    contentType: "application/json",
+                    success: function(data){
+                        alert(JSON.stringify(data));
+                    },
+                    error: function(errMsg) {
+                        console.log(errMsg)
+                        alert(JSON.stringify(errMsg));
+                    }
+                });
+            }
         }
     });
+ 
+    
 }
 
                           

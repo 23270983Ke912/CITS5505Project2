@@ -1,3 +1,4 @@
+import string
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for, Response
 )
@@ -8,9 +9,9 @@ from werkzeug.exceptions import abort
 
 from flaskapp.auth import login_required
 from flaskapp.db import get_db
-
+import json
 import time
-
+from urllib.parse import unquote
 
 bp = Blueprint('play', __name__)
 
@@ -36,7 +37,7 @@ def play():
     loaddata_clrs = [['b', 'b', 'r', 'r', 'b', 'b'], ['y', 'y', 'b', 'b', 'y', 'y'], [
         'p', 'p', 'y', 'y', 'p', 'p'], ['g', 'g', 'r', 'r', 'g', 'g'], ['r', 'r', 'b', 'b', 'r', 'r']]
     def_clrs = ['r', 'g', 'b', 'p', 'p', 'p', 'p', 'y']
-
+  
     return render_template('play/play.html', iframe=iframe, loaddata_clrs=loaddata_clrs, def_clrs=def_clrs)
 
 @bp.route('/rules')
@@ -79,7 +80,6 @@ def score():
         ' FROM user '
         ' ORDER BY id DESC'
     ).fetchall()
-
     if request.method == 'POST':
         score = request.form['score']
         maxcombo = request.form['maxcombo']
@@ -109,6 +109,47 @@ def score():
 
 
     return render_template('play/score.html', scores=scores, users=users)
+
+
+
+@bp.route('/scoreAdd', methods=('GET', 'POST'))
+@login_required
+def scoreAdd():
+
+    db = get_db()
+ 
+    jsondata = unquote(request.data.decode("utf-8")).split('=')[1]
+    if request.method == 'POST':
+        data = json.loads(jsondata)
+        score = data.get('score')
+        maxcombo = data.get('maxcombo')
+        playerid = data.get('playerid')
+        error = None
+
+        if not score:
+            error = 'Score is required.'
+        elif not maxcombo:
+            error = 'Maxcombo is required.'
+        elif not playerid:
+            error = 'Player is required.'
+
+        if error is None:
+            try:
+                print("INSERT INTO score (player_id, maxcombo, score) VALUES (?, ?, ?)",(playerid, maxcombo, score))
+                db.execute(
+                    "INSERT INTO score (player_id, maxcombo, score) VALUES (?, ?, ?)",
+                    (playerid, maxcombo, score)
+                )
+                db.commit()
+            except Exception as e:
+                print(e)
+            else:
+                return  json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
+        flash(error)
+
+
+    return 
 
 
 @bp.route('/manage', methods=('GET', 'POST'))
