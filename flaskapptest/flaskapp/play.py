@@ -147,12 +147,53 @@ def scoreAdd():
             except Exception as e:
                 print(e)
             else:
-                return  redirect(url_for('play.score'))
+
+                return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
 
         flash(error)
 
 
-    return url_for('play.score')
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
+@bp.route('/editAdd', methods=('GET', 'POST'))
+@login_required
+def editAdd():
+
+    db = get_db()
+ 
+    jsondata = unquote(request.data.decode("utf-8")).split('=')[1]
+    if request.method == 'POST':
+        data = json.loads(jsondata)
+        score = data.get('score')
+        maxcombo = data.get('maxcombo')
+        playerid = data.get('playerid')
+        error = None
+
+        if not score:
+            error = 'Score is required.'
+        elif not maxcombo:
+            error = 'Maxcombo is required.'
+        elif not playerid:
+            error = 'Player is required.'
+
+        if error is None:
+            try:
+                print("INSERT INTO score (player_id, maxcombo, score) VALUES (?, ?, ?)",(playerid, maxcombo, score))
+                db.execute(
+                    "INSERT INTO score (player_id, maxcombo, score) VALUES (?, ?, ?)",
+                    (playerid, maxcombo, score)
+                )
+                db.commit()
+            except Exception as e:
+                print(e)
+            else:
+                return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
+        flash(error)
+
+
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 
 @bp.route('/manage', methods=('GET', 'POST'))
