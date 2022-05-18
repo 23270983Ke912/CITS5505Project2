@@ -1,3 +1,4 @@
+from email.policy import default
 import string
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for, Response
@@ -11,6 +12,7 @@ from flaskapp.auth import login_required
 from flaskapp.db import get_db
 import json
 import time
+from datetime import date
 from urllib.parse import unquote
 
 bp = Blueprint('play', __name__)
@@ -28,17 +30,34 @@ def get_user(id):
         abort(404, f"User id {id} doesn't exist.")
 
     return user
+def load_today_puzzle():
+    defaultpuzzle = [['b', 'b', 'r', 'r', 'b', 'b'], ['y', 'y', 'b', 'b', 'y', 'y'], [
+        'p', 'p', 'y', 'y', 'p', 'p'], ['g', 'g', 'r', 'r', 'g', 'g'], ['r', 'r', 'b', 'b', 'r', 'r']]
+    db = get_db()
+    todaydate=date.today().strftime("%Y-%m-%d")
+    print(todaydate)
+    puzzle = db.execute(
+    "SELECT * FROM puzzle WHERE puzzledate = '"+todaydate+"'"
+    ).fetchone()
+    print(puzzle)
+    if puzzle is None:
+        print('puzzle is not found')
+        return defaultpuzzle
+    else:
+        print('puzzle found')
+        return puzzle['puzzle']
+    
+
+
 
 @bp.route('/play')
 @login_required
 def play():
-
     iframe = url_for('static', filename='playcore/puzzle.html')
-    loaddata_clrs = [['b', 'b', 'r', 'r', 'b', 'b'], ['y', 'y', 'b', 'b', 'y', 'y'], [
-        'p', 'p', 'y', 'y', 'p', 'p'], ['g', 'g', 'r', 'r', 'g', 'g'], ['r', 'r', 'b', 'b', 'r', 'r']]
-    def_clrs = ['r', 'g', 'b', 'p', 'p', 'p', 'p', 'y']
-  
-    return render_template('play/play.html', iframe=iframe, loaddata_clrs=loaddata_clrs, def_clrs=def_clrs)
+    
+    loaddata_clrs = load_today_puzzle()
+
+    return render_template('play/play.html', iframe=iframe, loaddata_clrs=loaddata_clrs)
 
 @bp.route('/rules')
 def rules():
@@ -59,9 +78,9 @@ def edit():
     iframe = url_for('static', filename='playcore/puzzle_edit.html')
     loaddata_clrs = [['b', 'b', 'r', 'r', 'b', 'b'], ['y', 'y', 'b', 'b', 'y', 'y'], [
         'p', 'p', 'y', 'y', 'p', 'p'], ['g', 'g', 'r', 'r', 'g', 'g'], ['r', 'r', 'b', 'b', 'r', 'r']]
-    def_clrs = ['r', 'g', 'b', 'p', 'p', 'p', 'p', 'y']
 
-    return render_template('play/edit.html', iframe=iframe, loaddata_clrs=loaddata_clrs, def_clrs=def_clrs)
+
+    return render_template('play/edit.html', iframe=iframe, loaddata_clrs=loaddata_clrs)
 
 
 @bp.route('/score', methods=('GET', 'POST'))
