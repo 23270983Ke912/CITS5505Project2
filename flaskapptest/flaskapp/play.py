@@ -178,12 +178,22 @@ def editAdd():
             error = 'puzzledate is required.'
         if error is None:
             try:
-                print("INSERT INTO puzzle (creator_id, puzzle, puzzledate) VALUES (?, ?,?)",(creator_id, puzzle,puzzledate))
-                db.execute(
-                    "INSERT INTO puzzle (creator_id,puzzle, puzzledate) VALUES (?, ?,?)",
-                    (creator_id, puzzle,puzzledate)
-                )
-                db.commit()
+                db = get_db()
+                print( "SELECT puzzledate FROM puzzle WHERE puzzledate = '"+puzzledate+"'")
+                dbpuzzledate = db.execute(
+                    "SELECT puzzledate FROM puzzle WHERE puzzledate = '"+puzzledate+"'"
+                ).fetchall()
+        
+                if len(dbpuzzledate)==0:
+                    print("INSERT INTO puzzle (creator_id, puzzle, puzzledate) VALUES (?, ?,?)",(creator_id, puzzle,puzzledate))
+                    db.execute(
+                        "INSERT INTO puzzle (creator_id,puzzle, puzzledate) VALUES (?, ?,?)",
+                        (creator_id, puzzle,puzzledate)
+                    )
+                    db.commit()
+                else:
+                    print("Puzzle existed")
+                    return json.dumps({'success':False}), 405, {'ContentType':'application/json'} 
             except Exception as e:
                 print(e)
             else:
