@@ -151,6 +151,45 @@ def scoreAdd():
 
     return url_for('play.score')
 
+@bp.route('/editAdd', methods=('GET', 'POST'))
+@login_required
+def scoreAdd():
+
+    db = get_db()
+ 
+    jsondata = unquote(request.data.decode("utf-8")).split('=')[1]
+    if request.method == 'POST':
+        data = json.loads(jsondata)
+        score = data.get('score')
+        maxcombo = data.get('maxcombo')
+        playerid = data.get('playerid')
+        error = None
+
+        if not score:
+            error = 'Score is required.'
+        elif not maxcombo:
+            error = 'Maxcombo is required.'
+        elif not playerid:
+            error = 'Player is required.'
+
+        if error is None:
+            try:
+                print("INSERT INTO score (player_id, maxcombo, score) VALUES (?, ?, ?)",(playerid, maxcombo, score))
+                db.execute(
+                    "INSERT INTO score (player_id, maxcombo, score) VALUES (?, ?, ?)",
+                    (playerid, maxcombo, score)
+                )
+                db.commit()
+            except Exception as e:
+                print(e)
+            else:
+                return url_for('play.score')
+
+        flash(error)
+
+
+    return url_for('play.score')
+
 
 @bp.route('/manage', methods=('GET', 'POST'))
 @login_required

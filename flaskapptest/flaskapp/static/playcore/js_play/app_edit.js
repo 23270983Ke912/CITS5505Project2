@@ -68,5 +68,26 @@ $('.tile_edit').click(function() {
         }
         submitedit.push('['+xrow+']');
     }
+    $.ajax({
+        url: "/scoreAdd",
+        method: "POST",        
+        data: {json: jsondata},
+        contentType: "application/json",
+        success: function(data){
+            console.log("Success");
+            console.log(data)
+            top.location = data
+            if (data.redirect) {
+                console.log("re")
+                // data.redirect contains the string URL to redirect to
+                window.location.href = data.redirect;
+            }
+            console.log("Success");
+        },
+        error: function(errMsg) {
+            console.log(errMsg)
+            alert(JSON.stringify(errMsg));
+        }
+    });
     alert('['+submitedit+']')
   };
