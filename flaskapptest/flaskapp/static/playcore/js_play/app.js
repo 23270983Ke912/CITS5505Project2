@@ -389,15 +389,7 @@ function makeChain() {
                                         data: { json: jsondata },
                                         contentType: "application/json",
                                         success: function (data) {
-                                            console.log("Success");
-                                            console.log(data)
-                                            top.location = data
-                                            if (data.redirect) {
-                                                console.log("re")
-                                                // data.redirect contains the string URL to redirect to
-                                                window.location.href = data.redirect;
-                                            }
-                                            console.log("Success");
+                                            top.location = "/play"
                                         },
                                         error: function (errMsg) {
                                             console.log(errMsg)
@@ -443,7 +435,8 @@ function makeChain() {
                 var jsondata = JSON.stringify({
                     playerid: userId,
                     maxcombo: max_combo,
-                    score: score
+                    score: score,
+                    shareable: shareable
                 });
                 console.log(jsondata)
                 $(".tile").addClass("endblur")
