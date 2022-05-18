@@ -1,8 +1,10 @@
 import sqlite3
-
+import random
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
+from werkzeug.security import generate_password_hash
+
 
 
 def get_db():
@@ -23,7 +25,6 @@ def close_db(e=None):
         db.close()
 
 
-
 def init_db():
     db = get_db()
 
@@ -36,6 +37,42 @@ def init_db():
 def init_db_command():
     """Clear the existing data and create new tables."""
     init_db()
+    click.echo('Initialized the database.')
+
+
+@click.command('init-db-test')
+@with_appcontext
+def init_db_command():
+    """Clear the existing data and create new tables."""
+    init_db()
+
+    db = get_db()
+
+    for i in range(20):
+        username = "user" + str(i)
+        password = "pass"
+
+        print("INSERT INTO user (username, isadmin, password ) VALUES (?, ?, ?)",
+              username, "", generate_password_hash(password))
+        db.execute(
+            "INSERT INTO user (username, isadmin, password ) VALUES (?, ?, ?)",
+            (username, "", generate_password_hash(password))
+        )
+        db.commit()
+
+        for n in range(2):
+            score = random.randint(2, 16)*10
+            maxcombo = random.randint(1, 8)
+            playerid = random.randint(1, 20)
+            shareable = str(random.randint(0, 1))
+            print("INSERT INTO score (player_id, maxcombo, score, shareable) VALUES (?, ?, ?, ?)",
+                  playerid, maxcombo, score, shareable)
+            db.execute(
+                "INSERT INTO score (player_id, maxcombo, score, shareable) VALUES (?, ?, ?, ?)",
+                (playerid, maxcombo, score, shareable)
+            )
+            db.commit()
+
     click.echo('Initialized the database.')
 
 
