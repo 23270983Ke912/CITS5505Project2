@@ -50,7 +50,7 @@ function strtoarrary(clrdata) {
 }
 //初始化盤面
 var init = function(){
-    
+
     $('#tries').text(try_count);
     var params = location.href.split('?')[1].split('&');
     data = {};
@@ -90,6 +90,9 @@ $(function() {
     $(".tile").draggable({
         grid: [parseInt(tile_w), parseInt(tile_h)], //拖曳時移動單位(以一個珠子的尺寸為移動單位)
         start:function(e, ui){
+
+            try_count-=1
+            $('#tries').text(try_count);  
             $("#progress").removeClass("hidden").addClass("shown");
             $("#countdownline").addClass('countdown');
             moveHistory= new Array();
@@ -109,7 +112,6 @@ $(function() {
         },
         drag: function(e, ui){
             combo_cnt=0;
-      
             $('#combo').text(combo_cnt);
             $('#score').text(score);
             $(this).addClass('sel'); //拖曳中珠子的樣式
@@ -346,7 +348,7 @@ function makeChain() {
             console.log(flagMatrix);
             gravity();
         }else{
-            try_count-=1
+           
             if(max_combo== null ){
                 max_combo=combo_cnt;
             }else{
@@ -354,7 +356,7 @@ function makeChain() {
                     max_combo=combo_cnt;
                 }
             }
-            $('#tries').text(try_count);  
+          
             if(try_count==0){
                
                 var jsondata = JSON.stringify({
@@ -365,12 +367,21 @@ function makeChain() {
                 console.log(jsondata)
                 $(".tile").addClass("endblur")
                 $(".tile").draggable("disable")
+
                 $.ajax({
-                    url: "http://127.0.0.1:5000/scoreAdd",
+                    url: "/scoreAdd",
                     method: "POST",        
                     data: {json: jsondata},
                     contentType: "application/json",
                     success: function(data){
+                        console.log("Success");
+                        console.log(data)
+                        top.location = data
+                        if (data.redirect) {
+                            console.log("re")
+                            // data.redirect contains the string URL to redirect to
+                            window.location.href = data.redirect;
+                        }
                         console.log("Success");
                     },
                     error: function(errMsg) {

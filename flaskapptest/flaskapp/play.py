@@ -144,12 +144,12 @@ def scoreAdd():
             except Exception as e:
                 print(e)
             else:
-                return  redirect(url_for('blog.index'))
+                return url_for('play.score')
 
         flash(error)
 
 
-    return 
+    return url_for('play.score')
 
 
 @bp.route('/manage', methods=('GET', 'POST'))
