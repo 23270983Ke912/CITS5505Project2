@@ -29,7 +29,11 @@ body {
 
 .tile_edit {
     float: left;
-    margin: 0 0px 0px 0;
+    margin-left: 10px;
+}
+.tile_edit_sel {
+    box-shadow: 0 0 4px 6px rgba(204, 0, 0, 0.579);
+    animation: glow 0.8s ease-in-out infinite alternate;
 }
 .endblur {
     filter: brightness(65%);
@@ -71,12 +75,14 @@ body {
 .demo {
     background-color: #333;
     transition: all 1s;
-
 }
-
+.demoedit {
+    background-color: #333;
+    transition: all 1s;
+}
 .demo:active {
     box-shadow: 0 0 4px 6px rgba(204, 0, 0, 0.579);
-    animation: glow 0.8s ease-in-out infinite alternate;
+    animation: glow 0.4s ease-in-out infinite alternate;
 }
 
 @-webkit-keyframes glow {
@@ -100,9 +106,12 @@ body {
     -khtml-opacity: 0.5; 
     filter:alpha(opacity=50);
     */
-    box-shadow: 2px 2px 3px 3px rgba(20%, 20%, 20%, 0.5) inset;
+    box-shadow: 2px 2px 3px 3px rgb(19, 70, 211) inset;
 }
+.sel:active{
 
+    box-shadow: 2px 2px 3px 3px rgb(19, 70, 211) inset;
+}
 .gone {
     background-color: #fff;
 }

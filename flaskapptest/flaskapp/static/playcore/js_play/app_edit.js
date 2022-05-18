@@ -4,7 +4,7 @@ var loaddata_clrs = [['b','b','r','r','b','b'],['y','y','b','b','y','y'],['p','p
 var dim_x = 6; //盤面x顆數
 var dim_y = 5; //盤面y顆數
 var tile_w = 60; //每塊寬px
-var tile_h = 80; //每塊高px
+var tile_h = 60; //每塊高px
 var tile_b = 1; //每塊框線px
 
 var selectid
@@ -22,15 +22,20 @@ var loadColor = function(i,j){
 
 //初始化盤面
 var init = function(){
+
+    var params = location.href.split('?')[1];
+    userId = params.split('=')[1]
+
+
     $(".tile").removeClass("endblur")
     //盤面大小
-    $('.demo').css('width', dim_x*tile_w).css('height', dim_y*tile_h);
+    $('.demoedit').css('width', dim_x*tile_w).css('height', dim_y*tile_h);
     //產生珠子並指定位置、顏色
     for(i=0; i<dim_y; i++){
         for(j=0; j<dim_x; j++){
             //var clr = pickRandColor();
             var clr = loadColor(i,j);
-            $('.demo').append('<div id="'+j+'-'+i+'" data-clr="'+clr+'" class="'+clr+' tile" style="left:'+j*tile_w+'px; top:'+i*tile_h+'px;" onclick="selectDiv(this)" ></div>');
+            $('.demoedit').append('<div id="'+j+'-'+i+'" data-clr="'+clr+'" class="'+clr+' tile" style="left:'+j*tile_w+'px; top:'+i*tile_h+'px;" onclick="selectDiv(this)" ></div>');
         }
     }
 
@@ -44,6 +49,7 @@ var init = function(){
 function selectDiv(e) {
     $('.tile').removeClass('sel')
     $(e).addClass('sel');
+    $('.tile_edit').addClass('tile_edit_sel')
     selectid=e.id;
   }
 $(function() {
@@ -54,12 +60,15 @@ $(function() {
 });
 
 $('.tile_edit').click(function() {
+    $('.tile_edit').removeClass('tile_edit_sel')
     $('#'+selectid).removeClass('r g b p y gone');
     $('#'+selectid).attr('data-clr',this.id)
     $('#'+selectid).addClass(this.id);
+    
   });
 
   function submit() {
+    console.log(document.getElementById('datepicker').value)
     submitedit=new Array();
     for (  y = 0; y < dim_y; y++) {
         var xrow= new Array();
@@ -68,21 +77,19 @@ $('.tile_edit').click(function() {
         }
         submitedit.push('['+xrow+']');
     }
+    var jsondata = JSON.stringify({
+        puzzle: '['+submitedit+']',
+        creator_id: userId,
+        puzzledate:document.getElementById('datepicker').value
+    });
     $.ajax({
-        url: "/scoreAdd",
+        url: "/editAdd",
         method: "POST",        
         data: {json: jsondata},
         contentType: "application/json",
         success: function(data){
             console.log("Success");
             console.log(data)
-            top.location = data
-            if (data.redirect) {
-                console.log("re")
-                // data.redirect contains the string URL to redirect to
-                window.location.href = data.redirect;
-            }
-            console.log("Success");
         },
         error: function(errMsg) {
             console.log(errMsg)

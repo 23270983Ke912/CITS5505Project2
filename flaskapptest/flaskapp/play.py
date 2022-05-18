@@ -126,9 +126,7 @@ def scoreAdd():
         playerid = data.get('playerid')
         error = None
 
-        print("score" + score)
-        print("maxcombo" + maxcombo)
-        print("playerid" + playerid)
+       
         if not score:
             error = 'Score is required.'
         elif not maxcombo:
@@ -165,24 +163,23 @@ def editAdd():
     jsondata = unquote(request.data.decode("utf-8")).split('=')[1]
     if request.method == 'POST':
         data = json.loads(jsondata)
-        score = data.get('score')
-        maxcombo = data.get('maxcombo')
-        playerid = data.get('playerid')
+        puzzle = data.get('puzzle')
+        creator_id = data.get('creator_id')
+        puzzledate = data.get('puzzledate')
         error = None
 
-        if not score:
-            error = 'Score is required.'
-        elif not maxcombo:
-            error = 'Maxcombo is required.'
-        elif not playerid:
-            error = 'Player is required.'
-
+        if not creator_id:
+            error = 'creator_id is required.'
+        elif not puzzle:
+            error = 'puzzle is required.'
+        elif not puzzledate:
+            error = 'puzzledate is required.'
         if error is None:
             try:
-                print("INSERT INTO score (player_id, maxcombo, score) VALUES (?, ?, ?)",(playerid, maxcombo, score))
+                print("INSERT INTO puzzle (creator_id, puzzle, puzzledate) VALUES (?, ?,?)",(creator_id, puzzle,puzzledate))
                 db.execute(
-                    "INSERT INTO score (player_id, maxcombo, score) VALUES (?, ?, ?)",
-                    (playerid, maxcombo, score)
+                    "INSERT INTO puzzle (creator_id,puzzle, puzzledate) VALUES (?, ?,?)",
+                    (creator_id, puzzle,puzzledate)
                 )
                 db.commit()
             except Exception as e:
