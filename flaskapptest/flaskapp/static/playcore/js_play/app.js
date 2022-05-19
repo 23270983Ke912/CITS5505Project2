@@ -368,8 +368,10 @@ function makeChain() {
                             var t = document.createTextNode("Share Score");
                             share_button.appendChild(t);
                             share_button.addEventListener("click", function openpage() {
+                                this.disabled = true;
                                 document.getElementById('outputdiv').appendChild(output);
                                 document.getElementById('output').appendChild(canvas);
+                                var image = canvas.toDataURL(canvas).replace(canvas, "image/octet-stream");
                                 shareable = "1"
                                 $(".tile").addClass("endblur")
                                 $(".tile").draggable("disable")
@@ -389,13 +391,19 @@ function makeChain() {
                                         data: { json: jsondata },
                                         contentType: "application/json",
                                         success: function (data) {
-                                            top.location = "/play"
+                                            var a = document.createElement('A');
+                                            a.href = image;
+                                            a.download = "Your result";
+                                            document.body.appendChild(a);
+                                            a.click();
+                                            document.body.removeChild(a);                                            
                                         },
                                         error: function (errMsg) {
                                             console.log(errMsg)
                                             alert(JSON.stringify(errMsg));
                                         }
                                     });
+                                    
                                 }
                                 else{
                                     alert("Unable to share 0 to the score board...")
