@@ -18,8 +18,20 @@
             <th>Player</th>
             <th>Date</th>
           </tr>
+          {% set score_ave = [] %}
+          {% set maxcombo_ave = [] %}
+
+
           {% if g.user['isadmin'] == 1 %}
           {% for score in scores %}
+
+          {% if score['shareable'] != "1" %}
+          {% if score_ave.append(score['score']) %}{% endif %}
+          {% if maxcombo_ave.append(score['maxcombo']) %}{% endif %}
+          {% endif %}
+
+
+
           <tr>
             <td>{{ score['score'] }}</td>
             <td>{{ score['maxcombo'] }}</td>
@@ -27,7 +39,13 @@
             <td>{{ score['created'].strftime('%Y-%m-%d') }}</td>
           </tr>
           {% endfor %}
+          
+          <p>Total Play: {{ score_ave | count }}</p>
 
+          <p>Average Score: {{ score_ave | sum / score_ave | count }}</p>
+
+          <p>Average Max Combo: {{ maxcombo_ave | sum / maxcombo_ave | count }}</p>
+          
           <tr>
             <form method="post">
               <td>
