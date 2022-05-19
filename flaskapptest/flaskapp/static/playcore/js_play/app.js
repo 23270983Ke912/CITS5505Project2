@@ -89,10 +89,10 @@ $(function () {
 
     $(".tile").draggable({
         grid: [parseInt(tile_w), parseInt(tile_h)], //拖曳時移動單位(以一個珠子的尺寸為移動單位)
-        start:function(e, ui){
+        start: function (e, ui) {
 
-            try_count-=1
-            $('#tries').text(try_count);  
+            try_count -= 1
+            $('#tries').text(try_count);
             $("#progress").removeClass("hidden").addClass("shown");
             $("#countdownline").addClass('countdown');
             moveHistory = new Array();
@@ -356,7 +356,7 @@ function makeChain() {
                     max_combo = combo_cnt;
                 }
             }
-   
+
             if (try_count <= 0) {
 
                 function takeshot() {
@@ -393,19 +393,19 @@ function makeChain() {
                                         success: function (data) {
                                             var a = document.createElement('A');
                                             a.href = image;
-                                            a.download = "Your result";
+                                            a.download = "Your result: " + score;
                                             document.body.appendChild(a);
                                             a.click();
-                                            document.body.removeChild(a);                                            
+                                            document.body.removeChild(a);
                                         },
                                         error: function (errMsg) {
                                             console.log(errMsg)
                                             alert(JSON.stringify(errMsg));
                                         }
                                     });
-                                    
+
                                 }
-                                else{
+                                else {
                                     alert("Unable to share 0 to the score board...")
                                 }
                             });
@@ -452,14 +452,14 @@ function makeChain() {
 
                 $.ajax({
                     url: "/scoreAdd",
-                    method: "POST",        
-                    data: {json: jsondata},
+                    method: "POST",
+                    data: { json: jsondata },
                     contentType: "application/json",
                     success: function (data) {
                         console.log("Success");
                         console.log(data)
                         //top.location = data
-                    
+
                     },
                     error: function (errMsg) {
                         console.log(errMsg)
