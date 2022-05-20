@@ -1,13 +1,13 @@
 var $ = jQuery.noConflict();
-var def_clrs = ['r', 'g', 'b', 'p', 'p', 'p', 'p', 'y']; //紅,綠,藍,紫,黃
-var dim_x = 6; //盤面x顆數
-var dim_y = 5; //盤面y顆數
-var tile_w = 60; //每塊寬px
-var tile_h = 80; //每塊高px
-var tile_b = 1; //每塊框線px
-var try_count = 3;
+var def_clrs = ['r', 'g', 'b', 'p', 'y']; // tile colors
+var dim_x = 6; //tile number for x axis
+var dim_y = 5; //tile number for y axis
+var tile_w = 60; //tile width
+var tile_h = 80; //tile height
+var tile_b = 1; //tile boarder
+var try_count = 3; //number of round for each game
 
-var sky_speed = 800; // 天降珠的速度
+var sky_speed = 800; // anima
 var grav_speed = 800; // 自然落珠的速度
 var move_speed = 160; // 移動珠子的速度
 var gone_speed = 300; // 珠子消除的速度
@@ -131,6 +131,7 @@ $(function () {
             }
         },
         stop: function (e, ui) {
+            $(".tile").draggable("disable")
             $('#timer').text(0);
             clearInterval(timer);
             $("#progress").removeClass("shown").addClass("hidden");
@@ -356,9 +357,10 @@ function makeChain() {
                     max_combo = combo_cnt;
                 }
             }
-
+            $(".tile").draggable("enable")
             if (try_count <= 0) {
-
+                $("#combotext").html("Max Combo")
+                $('#combo').text(max_combo);
                 function takeshot() {
                     var div = document.getElementById('mainbody');
 
