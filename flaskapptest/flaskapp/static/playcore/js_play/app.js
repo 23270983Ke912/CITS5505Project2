@@ -377,7 +377,7 @@ function makeChain() {
                                 shareable = "1"
                                 $(".tile").addClass("endblur")
                                 $(".tile").draggable("disable")
-                                if (score != 0 && max_combo != 0) {
+                                if (score != 0 || max_combo != 0) {
                                     var jsondata = JSON.stringify({
                                         playerid: userId,
                                         maxcombo: max_combo,
