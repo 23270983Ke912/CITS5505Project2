@@ -99,7 +99,7 @@ body {
 iframe {
     margin-top: 10vh;
     height: 600px;
-    width: 370px;
+    width: 365px;
 }
 
 table {
@@ -122,17 +122,18 @@ table {
     color: white;
   }
 
-.scoreboarddiv{
-    padding-top: 50px;
-    padding-bottom: 50px;
-    background-image: url("pics/board.png");
-    background-size: 100% 100%;
-
-}
-
 .rulestext{
+    display: flex;
     padding-left: 15px;
     padding-right: 15px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rulestext img{
+    padding-top: 10px;
+    padding-bottom: 30px;
+    margin: auto;
 }
 
 h1 {

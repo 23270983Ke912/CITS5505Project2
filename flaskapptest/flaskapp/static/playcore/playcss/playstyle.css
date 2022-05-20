@@ -143,12 +143,13 @@ body {
 }
 
 #btndiv{
-    width: 100%;
+    width: 365px;
     position: absolute;
     z-index: 1;
     top: 400px;
-    margin-left: 6px;
-    margin-top: 5px;
+    /* padding-left: 6px; */
+    /* margin-right: 5px; */
+    padding-top: 5px;
 }
 
 #btndiv button{
@@ -156,7 +157,7 @@ body {
     border: none;
     color: #5b2a32;
     height: 54px;
-    width: 32%;
+    width: 33%;
     position: relative;
     cursor: pointer;
     transition: all 0.5s;
