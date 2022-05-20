@@ -65,7 +65,7 @@ body {
 	}
     .gamediv{
         margin-top: 0vh;
-        padding-top: 75px;
+        padding-top: 36px;
         height: auto;
     }
     .centerdiv{
@@ -193,6 +193,10 @@ header .action {
     padding: 1em;
     background: #f6caca;
     border: 1px solid #a83737;
+}
+
+form { 
+    margin: 1em 0; display: flex; flex-direction: column; 
 }
 
 input.danger {
