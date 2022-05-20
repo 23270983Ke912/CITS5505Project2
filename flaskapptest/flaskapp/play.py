@@ -105,10 +105,10 @@ def score():
         playerid = request.form['playerid']
         error = None
 
-        if not score:
-            error = 'Score is required.'
-        elif not maxcombo:
-            error = 'Maxcombo is required.'
+        if not score or not score.isnumeric() :
+            error = 'Score is required. Or enter a positive number'
+        elif not maxcombo or not maxcombo.isnumeric():
+            error = 'Maxcombo is required. Or enter a positive number'
         elif not playerid:
             error = 'Player is required.'
 
