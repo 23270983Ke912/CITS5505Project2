@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="centergamediv">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1 class="title">System Crush</h1>
+    </div>
+
+    <div class="col-xs-12 centre maindivs">
+      <iframe frameborder='0' noresize='noresize'
+        src="{{ iframe }}?userId={{ g.user['id'] }}&loaddata_clrs={{ loaddata_clrs }}" id="iFrame1"
+        frameborder="0"></iframe>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

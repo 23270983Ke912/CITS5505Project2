@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+<div class="centergamediv">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Edit game</h1>
+    </div>
+
+    <div class="col-xs-12 centre">
+
+      <iframe frameborder='0' noresize='noresize' src="{{ iframe }}?userId={{ g.user['id'] }}" id="iFrame2"
+        frameborder="1"></iframe>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
