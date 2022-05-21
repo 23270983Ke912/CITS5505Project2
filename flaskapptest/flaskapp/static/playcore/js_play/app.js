@@ -7,12 +7,11 @@ var tile_h = 80; //tile height
 var tile_b = 1; //tile boarder
 var try_count = 3; //number of round for each game
 
-var sky_speed = 800; // anima
-var grav_speed = 800; // 自然落珠的速度
-var move_speed = 160; // 移動珠子的速度
-var gone_speed = 300; // 珠子消除的速度
-var myrng = new Math.seedrandom('cits');
-var combo_cnt = 0;
+var sky_speed = 800; // animate drop time for non existed tile
+var grav_speed = 800; // animate drop time for existed tile
+var move_speed = 160; // animate move time
+var gone_speed = 300; // animate tile disappear time
+var myrng = new Math.seedrandom('cits'); // set a random seed
 var score = 0;
 var moveHistory = new Array();
 var userId;
@@ -21,7 +20,7 @@ var shareable = "0";
 
 
 
-//隨機挑色
+//pick random color
 var pickRandColor = function () {
     var r = Math.floor(myrng() * def_clrs.length);
     return def_clrs[r];
@@ -49,7 +48,7 @@ function strtoarrary(clrdata) {
 
     return finalarray
 }
-//初始化盤面
+//init the board
 var init = function () {
 
     $('#tries').text(try_count);
@@ -64,9 +63,9 @@ var init = function () {
     userId = data["userId"]
 
     console.log(userId)
-    //盤面大小
+    //set board size
     $('.demo').css('width', dim_x * tile_w).css('height', dim_y * tile_h);
-    //產生珠子並指定位置、顏色
+    //generate tiles
     for (i = 0; i < dim_y; i++) {
         for (j = 0; j < dim_x; j++) {
             //var clr = pickRandColor();
@@ -75,7 +74,7 @@ var init = function () {
         }
     }
 
-    //設定所有珠子的尺寸及框線
+    //set tile css 
     $('.tile').css('width', tile_w - tile_b * 2);
     $('.tile').css('height', tile_h - tile_b * 2);
     $('.tile').css('border', tile_b + 'px solid #333');
@@ -88,7 +87,7 @@ $(function () {
     var timer;
 
     $(".tile").draggable({
-        grid: [parseInt(tile_w), parseInt(tile_h)], //拖曳時移動單位(以一個珠子的尺寸為移動單位)
+        grid: [parseInt(tile_w), parseInt(tile_h)], //set tile drag unit 
         start: function (e, ui) {
 
             try_count -= 1
@@ -115,19 +114,20 @@ $(function () {
 
             $('#combo').text(combo_cnt);
             $('#score').text(score);
-            $(this).addClass('sel'); //拖曳中珠子的樣式
+            $(this).addClass('sel'); //add css to selected tile
             selLeft = Math.abs(ui.offset.left);
             selTop = ui.offset.top;
             pos_x = selLeft / tile_w;
             pos_y = selTop / tile_h;
-            var cur_n = pos_x + '-' + pos_y; //拖曳中珠子的位置 "x-y"，與ID相同
-            //目標位置與ID不同時，表示被移動了
+            var cur_n = pos_x + '-' + pos_y; //current tile position "x-y"，same as id
+      
+            // if current tile position is different from tile id
             if (cur_n != $(this).attr('id')) {
-                var ori = $(this).attr('id'); //原本的ID(即原本的位置)
+                var ori = $(this).attr('id'); //tile id
 
                 moveHistory.push(cur_n);
-                moveTo(cur_n, ori); //將目標位置的珠子移到原本拖曳中珠子的位置
-                $(this).attr('id', cur_n); //拖曳中珠子標示為新位罝ID
+                moveTo(cur_n, ori); //tile id move to current tile position
+                $(this).attr('id', cur_n); //set new position to tile id
             }
         },
         stop: function (e, ui) {
@@ -137,14 +137,14 @@ $(function () {
             $("#progress").removeClass("shown").addClass("hidden");
             $("#countdownline").removeClass('countdown');
             console.log("moveHistory", moveHistory)
-            $(this).removeClass('sel');//停止拖曳就取消拖曳中樣式
-            makeChain();//開始計算要消除的Chain
+            $(this).removeClass('sel');//when stop remove sel css
+            makeChain();//calculate combo chain
         },
-        containment: ".demo", //限制珠子的移動範圍
+        containment: ".demo", //set draging area
     });
 });
 
-//移動珠子
+//move tile
 function moveTo(id, pos) {
     var aryPos = pos.split("-");
     var x = aryPos[0] * tile_w;
@@ -153,7 +153,7 @@ function moveTo(id, pos) {
     $('#' + id).attr('id', pos);
 }
 
-//記錄成為Chain的珠子，分別在X和Y軸有多少相同的珠子
+//record Chain's tile，and sum up same color tiles
 function repeatMap(repeatX, repeatY, clr, xn, yn) {
     this.repeatX = repeatX;
     this.repeatY = repeatY;
@@ -164,14 +164,14 @@ function repeatMap(repeatX, repeatY, clr, xn, yn) {
 }
 
 
-//消除成為Chain的珠子
+//delete combochain's tile
 function makeChain() {
-    //flagMatrix記錄每個珠子XY軸有多少相同珠，"2,3"表示X相鄰有2顆、Y相鄰有3顆 (Chain的例子)
+    //flagMatrix record the number of tiles having the same color in x y axis
     var flagMatrix = new Array();
     for (i = 0; i < dim_x; i++) {
         flagMatrix[i] = new Array();
     }
-    //開始統計Chain，由左至右，由上而下的visit每一顆，記錄它的X,Y軸的鄰居擁有同色珠的數目(是否成為可消的Chain)
+    //calculate chain from left to right up to down record the number of tiles having the same color
     for (y = 0; y < dim_y; y++) {
         for (x = 0; x < dim_x; x++) {
             var repeatX = 0;
@@ -183,17 +183,17 @@ function makeChain() {
             if (x > 0) {
                 var curX_TileClr = $('#' + x + '-' + y).attr('data-clr');
                 var lasX_TileClr = $('#' + (x - 1) + '-' + y).attr('data-clr');
-                //目前X軸這顆的顏色 和 X軸上一顆的顏色 相同，repeatX+1
+                //if current x tile have the same color as the last x tile then repeatX+1 else set 0
                 if (curX_TileClr == lasX_TileClr) {
                     repeatX = flagMatrix[x - 1][y].repeatX + 1;
                 } else {
                     repeatX = 0;
                 }
                 clr = curX_TileClr;
-                //repeatX>1表示有三顆相同，成為Chain了                
+                //if repeatX>1 means there are three same color tile which makes a chain                
                 if (repeatX > 1) {
                     var i = repeatX;
-                    //將X Chain上的每一顆都標上此Chain的總顆數
+                    //tag all x chain tiles with the total repeatX
                     for (i; i > 0; i--) {
                         flagMatrix[x - i][y].repeatX = repeatX;
                         flagMatrix[x - i][y].clr = clr;
@@ -204,16 +204,17 @@ function makeChain() {
             if (y > 0) {
                 var curY_TileClr = $('#' + x + '-' + y).attr('data-clr');
                 var lasY_TileClr = $('#' + x + '-' + (y - 1)).attr('data-clr');
-                //目前X軸這顆的顏色 和 X軸上一顆的顏色 相同，repeatY+1
+                //if current y tile have the same color as the last ytile then repeatY+1 else set 0
                 if (curY_TileClr == lasY_TileClr) {
                     repeatY = flagMatrix[x][y - 1].repeatY + 1;
                 } else {
                     repeatY = 0;
                 }
                 clr = curY_TileClr;
-                //repeatY>1表示有三顆相同，成為Chain了     
+                //if repeatY>1 means there are three same color tile which makes a chain        
                 if (repeatY > 1) {
                     var i = repeatY;
+                    //tag all y chain tiles with the total repeatY
                     for (i; i > 0; i--) {
                         flagMatrix[x][y - i].repeatY = repeatY;
                         flagMatrix[x][y - i].clr = clr;
@@ -226,12 +227,12 @@ function makeChain() {
         }
     }
 
-    // 記錄完Chain了，開始準備消除珠子
+    // after recording Chains then start to prepare removing tiles
     var flag = false;
     var aryChk = new Array();
     var aryChains = new Array();
     var aryCombo = new Array();
-    //收集combo group
+    //collect combo group and record score
     for (x = 0; x < dim_x; x++) {
         for (y = 0; y < dim_y; y++) {
             if (flagMatrix[x][y].repeatX > 1 || flagMatrix[x][y].repeatY > 1) {
@@ -303,7 +304,7 @@ function makeChain() {
     }
     console.log(aryCombo);
 
-    //走訪combo chain
+    //visit all combo chain
     for (var d = 0; d < aryCombo.length; d++) {
         for (var e = 0; e < aryCombo[d].length; e++) {
             $('#' + aryCombo[d][e]).addClass('c' + d);
@@ -316,40 +317,31 @@ function makeChain() {
         $('#combo').text(++combo_cnt);
         $('#score').text(score);
 
-        /*
-        $('.c'+d).each(function(){
-            $(document).queue((function (el) {
-                return function () {
-                    el.animate({'opacity':0.2}, gone_speed, function () { 
-                        $(document).dequeue(); 
-                    });
-                }; 
-            })($(this)) );
-        });
-        */
     }
 
     //console.log(ems);
     //animateElems(ems);
 
+    //delete combo tiles
     for (x = 0; x < dim_x; x++) {
         for (y = 0; y < dim_y; y++) {
             if (flagMatrix[x][y].repeatX > 1 || flagMatrix[x][y].repeatY > 1) {
                 $('#' + x + '-' + y).animate({ 'opacity': 0.2 }, gone_speed, function () {
                     $(this).addClass('gone').attr('data-gone', '1');
-                    //$('#'+x+'-'+y).html(flagMatrix[x][y].repeatX+':'+flagMatrix[x][y].repeatY);
                 });
                 flag = true;
             }
-            //$('#'+x+'-'+y).html(flagMatrix[x][y].repeatX+':'+flagMatrix[x][y].repeatY+'<br>('+flagMatrix[x][y].clr+') ['+flagMatrix[x][y].xn+'.'+flagMatrix[x][y].yn+']');
+         
         }
     }
+    // after combo chain deleted then use gravity to drop the tiles above
     $(".tile").promise().done(function () {
         if (flag) {
             $('.tile').css('opacity', 1);
             console.log(flagMatrix);
             gravity();
         } else {
+            // after all gravity combo chains are deleted then calculate result
             if (max_combo == null) {
                 max_combo = combo_cnt;
             } else {
@@ -358,6 +350,7 @@ function makeChain() {
                 }
             }
             $(".tile").draggable("enable")
+             // after all round finish show the final result
             if (try_count <= 0) {
                 $("#combotext").html("Max Combo")
                 $('#combo').text(max_combo);
@@ -386,7 +379,7 @@ function makeChain() {
                                     });
                                     console.log(jsondata)
 
-
+                                    // record score with ajax to db
                                     $.ajax({
                                         url: "/scoreAdd",
                                         method: "POST",
@@ -440,6 +433,7 @@ function makeChain() {
 
                         })
                 }
+                 // record screenshot
                 takeshot()
 
                 var jsondata = JSON.stringify({
@@ -451,7 +445,7 @@ function makeChain() {
                 console.log(jsondata)
                 $(".tile").addClass("endblur")
                 $(".tile").draggable("disable")
-
+                // record score to db even user don't want to share it
                 $.ajax({
                     url: "/scoreAdd",
                     method: "POST",
@@ -522,7 +516,7 @@ var markChain = function (aryChk, id) {
     }
 
 }
-
+// check combo 
 var isChecked = function (aryChk, id) {
     for (s = 0; s < aryChk.length; s++) {
         thisEntry = aryChk[s].toString();
@@ -532,7 +526,7 @@ var isChecked = function (aryChk, id) {
     }
     return false;
 }
-//交換珠子
+//exchange tiles
 function tileExchange(oid, nid) {
     if (oid != nid &&
         ($('#' + oid).attr('data-gone') == '1' || $('#' + nid).attr('data-gone') == '1') &&
@@ -559,9 +553,10 @@ function tileExchange(oid, nid) {
     }
 }
 
-//自然落珠+天降新珠
+//gravity drop for existed tile and non existed tile
 function gravity() {
-    //計算被消除的珠子產生的hole有多少，再把上方的珠子和被消除的珠子交換位置
+    
+    //calculate the hole that delete tile made and exchange with the tile above
     for (x = 0; x < dim_x; x++) {
         var hole = 0;
         for (y = dim_y - 1; y >= 0; y--) {
@@ -575,7 +570,7 @@ function gravity() {
             }
         }
     }
-    // 讓被消除掉的珠子重生
+    // create new tile when deleted
     $('.tile[data-gone=1]').each(function () {
 
         var clr = pickRandColor();
