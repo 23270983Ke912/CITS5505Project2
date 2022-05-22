@@ -6,90 +6,113 @@
 
 {% block content %}
 
-    <div class="row centergamediv">
-      <div class="col-xs-12">
-        <h1>{% block title %}Score Board {% endblock %}</h1>
-      </div>
-      <div class="col-xs-12">
-        <table id="scoreboard">
-          <tr>
-            <th>Scores</th>
-            <th>Max Combo</th>
-            <th>Player</th>
-            <th>Date</th>
-          </tr>
-          {% set score_ave = [] %}
-          {% set maxcombo_ave = [] %}
+<div class="row centergamediv">
+  <div class="col-xs-12">
+    <h1>{% block title %}Score Board {% endblock %}</h1>
+  </div>
+  <div class="col-xs-12">
+    {% if g.user['isadmin'] == 1 %}
+    <p>Displaying all records</p>
+    {% else %}
+    <p>Only displaying shared scores from players</p>
+    {% endif %}
+
+    <table id="scoreboard">
+      {% set score_ave = [] %}
+      {% set maxcombo_ave = [] %}
 
 
-          {% if g.user['isadmin'] == 1 %}
-          {% for score in scores %}
+      {% if g.user['isadmin'] == 1 %}
+      <tr>
+        <th>Scores</th>
+        <th>Max Combo</th>
+        <th>Player</th>
+        <th>Date</th>
+      </tr>
+      {% for score in scores %}
 
-          {% if score['shareable'] != "1" %}
-          {% if score_ave.append(score['score']) %}{% endif %}
-          {% if maxcombo_ave.append(score['maxcombo']) %}{% endif %}
-          {% endif %}
+      {% if score['shareable'] != "1" %}
+      {% if score_ave.append(score['score']) %}{% endif %}
+      {% if maxcombo_ave.append(score['maxcombo']) %}{% endif %}
+      {% endif %}
+
+      <tr>
+        <td>{{ score['score'] }}</td>
+        <td>{{ score['maxcombo'] }}</td>
+        {% if score['shareable'] == "1" %}
+        <td>{{ score['username'] }} :shared:</td>
+        {% else %}
+        <td>{{ score['username'] }}</td>
+        {% endif %}
+        <td>{{ score['created'].strftime('%Y-%m-%d') }}</td>
+      </tr>
+      {% endfor %}
+      {% else %}
 
 
+      <tr>
+        <th>Scores</th>
+        <th>Max Combo</th>
+        <th>Player</th>
+        <th>Date</th>
+      </tr>
 
-          <tr>
-            <td>{{ score['score'] }}</td>
-            <td>{{ score['maxcombo'] }}</td>
-            <td>{{ score['username'] }}</td>
-            <td>{{ score['created'].strftime('%Y-%m-%d') }}</td>
-          </tr>
+      {% for score in scores %}
+
+      {% if score['shareable'] == "1" %}
+
+      <tr>
+        <td>{{ score['score'] }}</td>
+        <td>{{ score['maxcombo'] }}</td>
+        <td>{{ score['username'] }}</td>
+        <td>{{ score['created'].strftime('%Y-%m-%d') }}</td>
+      </tr>
+      {% endif %}
+
+      {% endfor %}
+
+      {% endif %}
+    </table>
+
+    {% if g.user['isadmin'] == 1 %}
+
+    <p>Add a testing score:</p>
+
+
+    <form method="post">
+        <h4>Score:</h4>
+        <input name="score" id="score" placeholder="Enter a score" required>
+
+        <h4>Maxcombo</h4>
+        <input name="maxcombo" id="maxcombo" placeholder="Enter a maxcombo" required>
+
+        <h4>Player:</h4>
+        <select name="playerid" id="playerid">
+          {% for user in users %}
+          <option value={{ user['id'] }}>{{ user['username'] }}</option>
           {% endfor %}
-          
-          <p>Total Play: {{ score_ave | count }}</p>
+        </select>
+        <input type="submit" value="Add">
+    </form>
 
-          <p>Average Score: {{ score_ave | sum / score_ave | count }}</p>
+    <p>Total Play: {{ score_ave | count }}</p>
 
-          <p>Average Max Combo: {{ maxcombo_ave | sum / maxcombo_ave | count }}</p>
-          
-          <tr>
-            <form method="post">
-              <td>
-                <label for="score">Score</label>
-                <input name="score" id="score" placeholder="Enter a score" required>
-              </td>
-              <td>
-                <label for="username">Maxcombo</label>
-                <input name="maxcombo" id="maxcombo" placeholder="Enter a maxcombo" required>
-              </td>
-              <td>
-                <label for="cars">Player:</label>
-                <select name="playerid" id="playerid">
-                  {% for user in users %}
-                  <option value = {{ user['id'] }} >{{ user['username'] }}</option>
-                  {% endfor %}
+    {% if score_ave != [] %}
+    <p>Average Score: {{ score_ave | sum / score_ave | count }}</p>
+    {% else %}
+    <p>Average Score: 0</p>
+    {% endif %}
+
+    {% if maxcombo_ave != [] %}
+    <p>Average Max Combo: {{ maxcombo_ave | sum / maxcombo_ave | count }}</p>
+    {% else %}
+    <p>Average Max Combo: 0</p>
+    {% endif %}
+    {% endif %}
 
 
-                </select>
-              </td>
-              <td>
-                <input type="submit" value="Add">
-              </td>
-            </form>
-          </tr>
-          {% else %}
-          <p>Only displaying shared scores from players</p>
-          {% for score in scores %}
 
-          {% if score['shareable'] == "1" %}
-
-          <tr>
-            <td>{{ score['score'] }}</td>
-            <td>{{ score['maxcombo'] }}</td>
-            <td>{{ score['username'] }}</td>
-            <td>{{ score['created'].strftime('%Y-%m-%d') }}</td>
-          </tr>
-          {% endif %}
-
-          {% endfor %}
-
-          {% endif %}
-        </table>
-      </div>
-    </div>
+  </div>
+</div>
 
 {% endblock %}

@@ -60,18 +60,24 @@ def init_db_command_test():
         )
         db.commit()
 
-        for n in range(2):
-            score = random.randint(2, 16)*10
-            maxcombo = random.randint(1, 8)
-            playerid = random.randint(1, 20)
-            shareable = str(random.randint(0, 1))
-            print("INSERT INTO score (player_id, maxcombo, score, shareable) VALUES (?, ?, ?, ?)",
-                  playerid, maxcombo, score, shareable)
-            db.execute(
-                "INSERT INTO score (player_id, maxcombo, score, shareable) VALUES (?, ?, ?, ?)",
-                (playerid, maxcombo, score, shareable)
-            )
-            db.commit()
+        score = random.randint(2, 16)*10
+        maxcombo = random.randint(1, 8)
+        playerid = random.randint(1, 20)
+        print("INSERT INTO score (player_id, maxcombo, score, shareable) VALUES (?, ?, ?, ?)",
+                playerid, maxcombo, score, "1")
+        db.execute(
+            "INSERT INTO score (player_id, maxcombo, score, shareable) VALUES (?, ?, ?, ?)",
+            (playerid, maxcombo, score, "1")
+        )
+        db.commit()
+
+        print("INSERT INTO score (player_id, maxcombo, score, shareable) VALUES (?, ?, ?, ?)",
+                playerid, maxcombo, score, "0")
+        db.execute(
+            "INSERT INTO score (player_id, maxcombo, score, shareable) VALUES (?, ?, ?, ?)",
+            (playerid, maxcombo, score, "0")
+        )
+        db.commit()
 
     click.echo('Initialized the database.')
 
