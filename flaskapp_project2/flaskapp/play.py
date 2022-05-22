@@ -32,7 +32,7 @@ def get_user(id):
     return user
 def load_today_puzzle():
     defaultpuzzle = [['b', 'b', 'r', 'r', 'b', 'b'], ['y', 'y', 'b', 'b', 'y', 'y'], [
-        'p', 'p', 'y', 'y', 'p', 'p'], ['g', 'g', 'r', 'r', 'g', 'g'], ['r', 'r', 'b', 'b', 'r', 'r']]
+'p', 'p', 'y', 'y', 'p', 'p'], ['g', 'g', 'r', 'r', 'g', 'g'], ['r', 'r', 'b', 'b', 'r', 'r']]
     db = get_db()
     todaydate=date.today().strftime("%Y-%m-%d")
     print(todaydate)
@@ -76,11 +76,8 @@ def restart():
 def edit():
 
     iframe = url_for('static', filename='playcore/puzzle_edit.html')
-    loaddata_clrs = [['b', 'b', 'r', 'r', 'b', 'b'], ['y', 'y', 'b', 'b', 'y', 'y'], [
-        'p', 'p', 'y', 'y', 'p', 'p'], ['g', 'g', 'r', 'r', 'g', 'g'], ['r', 'r', 'b', 'b', 'r', 'r']]
 
-
-    return render_template('play/edit.html', iframe=iframe, loaddata_clrs=loaddata_clrs)
+    return render_template('play/edit.html', iframe=iframe)
 
 
 @bp.route('/score', methods=('GET', 'POST'))
