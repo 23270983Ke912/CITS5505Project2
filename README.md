@@ -1,4 +1,4 @@
-# A fun puzzle
+# A fun puzzle "Server Crush"
 
 ## 1. Introduction
 This game was inspired by a popular mobile game called Puzzle & Dragons.
@@ -80,7 +80,7 @@ Have a try! You can also save you result on your desktop for you to share it wit
 
 	This initialises the database for storing user, account, and puzzle details. In additional to that, the init-db_test command will generate 20 users and 40 results randomly for debugging purpose.
 
-		5.2.3.1. Table Structure
+	5.2.3.1. Table Structure
 
 ![](/flaskapp_project2/flaskapp/md_file_images/table.png)
 
