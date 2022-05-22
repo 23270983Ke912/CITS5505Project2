@@ -82,7 +82,7 @@ Have a try! You can also save you result on your desktop for you to share it wit
 
 	5.2.3.1. Table Structure
 
-	![](/flaskapp_project2/flaskapp/md_file_images/table.png)
+![](/flaskapp_project2/flaskapp/md_file_images/table.png)
 
 5.2.4. play.py
 
