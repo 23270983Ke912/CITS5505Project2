@@ -1,4 +1,4 @@
-# A fun puzzle
+# A fun puzzle "Server Crush"
 
 ## 1. Introduction
 This game was inspired by a popular mobile game called Puzzle & Dragons.
