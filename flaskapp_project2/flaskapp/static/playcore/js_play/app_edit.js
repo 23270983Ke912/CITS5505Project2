@@ -8,7 +8,6 @@ var tile_h = 60;
 var tile_b = 1; 
 
 var selectid
-var submitedit = new Array();
 
 
       
@@ -76,16 +75,16 @@ $('.tile_edit').click(function() {
 
   function submit() {
     console.log(document.getElementById('datepicker').value)
-    submitedit=new Array();
+    var submitedit="";
     for (  y = 0; y < dim_y; y++) {
         var xrow= new Array();
         for ( x = 0; x < dim_x; x++) {
-            xrow.push("'"+$('#'+x+'-'+y).attr('data-clr')+"'");
+            submitedit+="'"+$('#'+x+'-'+y).attr('data-clr')+"',";
         }
-        submitedit.push('['+xrow+']');
+            
     }
     var jsondata = JSON.stringify({
-        puzzle: '['+submitedit+']',
+        puzzle: submitedit.substring(0, submitedit.length - 1),
         creator_id: userId,
         puzzledate:document.getElementById('datepicker').value
     });

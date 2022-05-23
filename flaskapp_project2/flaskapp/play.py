@@ -31,8 +31,7 @@ def get_user(id):
 
     return user
 def load_today_puzzle():
-    defaultpuzzle = [['b', 'b', 'r', 'r', 'b', 'b'], ['y', 'y', 'b', 'b', 'y', 'y'], [
-'p', 'p', 'y', 'y', 'p', 'p'], ['g', 'g', 'r', 'r', 'g', 'g'], ['r', 'r', 'b', 'b', 'r', 'r']]
+    defaultpuzzle = "'b', 'b', 'r', 'r', 'b', 'b', 'y', 'y', 'b', 'b', 'y', 'y', 'p', 'p', 'y', 'y', 'p', 'p', 'g', 'g', 'r', 'r', 'g', 'g', 'r', 'r', 'b', 'b', 'r', 'r'"
     db = get_db()
     todaydate=date.today().strftime("%Y-%m-%d")
     print(todaydate)
