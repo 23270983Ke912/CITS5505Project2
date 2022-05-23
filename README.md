@@ -1,5 +1,8 @@
 # A fun puzzle "Server Crush"
-
+## 
+By:
+Xinyu Wang 23631069
+Ke-Cheng Lu 23270983
 ## 1. Introduction
 This game was inspired by a popular mobile game called Puzzle & Dragons.
 
