@@ -3,7 +3,7 @@
 ## 1. Introduction
 This game was inspired by a popular mobile game called Puzzle & Dragons.
 
-![](/flaskapp_project2/flaskapp/md_file_images/puzzleanddragons.jpeg)
+![](/flaskapp_project2/flaskapp/md_file_images/dragon&puzzle.gif)
 
 This game is very similar to candy crush, or other similar match-of-three games.
 
